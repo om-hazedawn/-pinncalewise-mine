@@ -118,16 +118,20 @@ export function AboutPage({ language = 'en' }: { language?: 'en' | 'zh' }) {
             {text.stats.map((stat, index) => (
               <motion.div
                 key={index}
-                className="flex flex-col items-center p-6 sm:p-8 rounded-2xl bg-white shadow-lg border-2 border-primary/20 hover:border-primary/50 hover:shadow-xl transition-all duration-300"
+                className="group flex flex-col items-center p-6 sm:p-8 rounded-2xl bg-white shadow-lg border-2 border-primary/10 hover:border-primary/50 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <div className="w-16 h-16 mb-4 rounded-full bg-primary/10 flex items-center justify-center">
-                  <stat.icon className="w-8 h-8 text-primary" />
+                <div className="w-16 h-16 mb-4 rounded-full bg-primary/5 flex items-center justify-center group-hover:bg-primary/10 transition-colors duration-300">
+                  <stat.icon className="w-8 h-8 text-primary/70 group-hover:text-primary transition-colors duration-300" />
                 </div>
-                <h3 className="text-xl sm:text-2xl font-bold mb-2 text-high-contrast">{stat.title}</h3>
-                <p className="text-medium-contrast text-center">{stat.desc}</p>
+                <h3 className="text-xl sm:text-2xl font-bold mb-2 text-foreground/80 group-hover:text-foreground transition-colors duration-300">
+                  {stat.title}
+                </h3>
+                <p className="text-foreground/60 group-hover:text-foreground/80 text-center transition-colors duration-300">
+                  {stat.desc}
+                </p>
               </motion.div>
             ))}
           </div>
