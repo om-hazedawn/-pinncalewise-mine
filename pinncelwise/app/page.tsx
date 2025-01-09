@@ -1,17 +1,11 @@
-'use client'
+import { Logo } from "@/components/logo"
+import { HomePage } from "@/components/components-home-page"
+import { LayoutWrapper } from "@/components/components-layout-wrapper"
 
-import { LayoutWrapper } from '@/components/components-layout-wrapper'
-import { AboutPage } from '@/components/components-about-page'
-import { PricingPage } from '@/components/components-pricing-page'
-import { useState } from 'react'
-
-export default function Home() {
-  const [language, setLanguage] = useState<'en' | 'zh'>('en')
-
+export default function Page() {
   return (
     <LayoutWrapper>
-      <AboutPage language={language} />
-      <PricingPage language={language} />
+      <HomePage />
     </LayoutWrapper>
   )
 }
