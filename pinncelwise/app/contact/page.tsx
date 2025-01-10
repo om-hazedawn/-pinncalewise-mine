@@ -71,7 +71,45 @@ const content = {
 
 export default function Contact() {
   const [language, setLanguage] = useState<'en' | 'zh'>('en')
+  const [isLoading, setIsLoading] = useState(false)
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  })
   const text = content[language]
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setFormData({ name: '', email: '', message: '' });
+        alert(language === 'en' ? 'Message sent successfully!' : '訊息發送成功！');
+      } else {
+        alert(language === 'en' ? 'Failed to send message. Please try again.' : '發送訊息失敗。請重試。');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert(language === 'en' ? 'An error occurred. Please try again.' : '發生錯誤。請重試。');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
 
   return (
     <LayoutWrapper>
@@ -101,31 +139,53 @@ export default function Contact() {
                 transition={{ duration: 0.5 }}
               >
                 <Card className="p-6">
-                  <form className="space-y-6">
+                  <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="space-y-2">
                       <Label htmlFor="name">{text.form.name}</Label>
                       <Input 
-                        id="name" 
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
                         placeholder={text.form.namePlaceholder}
+                        required
                       />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="email">{text.form.email}</Label>
                       <Input 
-                        id="email" 
+                        id="email"
+                        name="email"
                         type="email"
+                        value={formData.email}
+                        onChange={handleChange}
                         placeholder={text.form.emailPlaceholder}
+                        required
                       />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="message">{text.form.message}</Label>
                       <Textarea 
                         id="message"
+                        name="message"
+                        value={formData.message}
+                        onChange={handleChange}
                         placeholder={text.form.messagePlaceholder}
                         className="min-h-[150px]"
+                        required
                       />
                     </div>
-                    <Button className="w-full">{text.form.submit}</Button>
+                    <Button 
+                      type="submit" 
+                      className="w-full"
+                      disabled={isLoading}
+                    >
+                      {isLoading ? (
+                        language === 'en' ? 'Sending...' : '發送中...'
+                      ) : (
+                        text.form.submit
+                      )}
+                    </Button>
                   </form>
                 </Card>
               </motion.div>
