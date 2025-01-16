@@ -11,6 +11,7 @@ import { Globe } from 'lucide-react'
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
+import { Logo } from "@/components/logo"
 import Image from "next/image"
 
 interface NavBarProps {
@@ -24,17 +25,29 @@ export function NavBar({ language = 'en', setLanguage }: NavBarProps) {
   const translations = {
     en: {
       home: "Home",
-      about: "About",
-      pricing: "Pricing",
-      services: "Services",
+      openCompany: "Open Company",
+      closeCompany: "Close Company",
+      secretaryServices: "Secretary Services",
+      accounting: "Accounting",
+      taxServices: "Tax Services",
+      auditServices: "Audit Services",
+      otherServices: "Other Services",
+      tools: "Tools",
+      blog: "Blog",
       contact: "Contact",
       language: "Language"
     },
     zh: {
       home: "主頁",
-      about: "關於我們",
-      pricing: "價格",
-      services: "服務",
+      openCompany: "開公司",
+      closeCompany: "註銷公司",
+      secretaryServices: "公司秘書服務",
+      accounting: "會計理賬",
+      taxServices: "報稅服務",
+      auditServices: "核數服務",
+      otherServices: "其他服務",
+      tools: "實用工具",
+      blog: "毅思博客",
       contact: "聯絡我們",
       language: "語言"
     }
@@ -42,23 +55,25 @@ export function NavBar({ language = 'en', setLanguage }: NavBarProps) {
 
   const links = [
     { href: "/", label: translations[language].home },
-    { href: "/about", label: translations[language].about },
-    { href: "/pricing", label: translations[language].pricing },
-    { href: "/services", label: translations[language].services },
+    { href: "/open-company", label: translations[language].openCompany },
+    { href: "/close-company", label: translations[language].closeCompany },
+    { href: "/secretary-services", label: translations[language].secretaryServices },
+    { href: "/accounting", label: translations[language].accounting },
+    { href: "/tax-services", label: translations[language].taxServices },
+    { href: "/audit-services", label: translations[language].auditServices },
+    { href: "/other-services", label: translations[language].otherServices },
+    { href: "/tools", label: translations[language].tools },
+    { href: "/blog", label: translations[language].blog },
     { href: "/contact", label: translations[language].contact },
   ]
 
   return (
     <div className="flex items-center justify-between w-full">
-      <Link href="/" className="flex items-center space-x-2">
-        <Image
-          src="/placeholder.svg?height=32&width=32"
-          alt="Pinnaclewise Logo"
-          width={32}
-          height={32}
-          className="rounded-lg"
-        />
-        <span className="font-semibold">Pinnaclewise</span>
+      <Link href="/" className="flex items-center space-x-3 hover:opacity-90 transition-opacity">
+        <Logo width={32} height={32} />
+        <span className="font-semibold text-xl tracking-tight">
+          Pinnacle<span className="text-primary">Wise</span>
+        </span>
       </Link>
       
       <nav className="hidden md:flex items-center space-x-4 lg:space-x-6">

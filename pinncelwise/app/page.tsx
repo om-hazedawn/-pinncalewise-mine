@@ -1,11 +1,30 @@
-import { Logo } from "@/components/logo"
 import { HomePage } from "@/components/components-home-page"
-import { LayoutWrapper } from "@/components/components-layout-wrapper"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Pinnaclewise | Professional Accounting & Company Services in Hong Kong",
+  description: "Leading provider of professional accounting, audit, company formation, and corporate services in Hong Kong. Expert solutions for businesses with 24-hour response guarantee.",
+  keywords: [
+    "Hong Kong accounting",
+    "company formation",
+    "audit services",
+    "corporate secretary",
+    "tax services",
+    "business registration",
+    "company incorporation",
+    "financial services Hong Kong",
+    "business consulting",
+    "corporate services"
+  ],
+  alternates: {
+    canonical: "https://pinnaclewise.com",
+    languages: {
+      'en-US': '/en',
+      'zh-HK': '/zh'
+    },
+  }
+}
 
 export default function Page() {
-  return (
-    <LayoutWrapper>
-      <HomePage />
-    </LayoutWrapper>
-  )
+  return <HomePage />
 }
