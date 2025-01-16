@@ -27,7 +27,7 @@ const pricingPlans = [
   },
   {
     name: "增值計劃",
-    price: "1100",
+    price: "1000",
     govFee: "105",
     yearlyTotal: "1205",
     recommended: true,
@@ -55,7 +55,7 @@ const pricingPlans = [
   },
   {
     name: "專業計劃",
-    price: "2200",
+    price: "2000",
     govFee: "105",
     yearlyTotal: "2305",
     features: [
