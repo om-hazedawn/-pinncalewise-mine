@@ -5,23 +5,56 @@ import { FileText, Users, Calculator } from "lucide-react"
 import { Button } from "./ui/button"
 import { cn } from "@/lib/utils"
 
-const otherServices = [
-  {
-    title: "股份轉讓",
-    description: "公司股份轉讓時常都會發生，原因可以是生意轉讓，可以是更改股權比例，股東退股，亦可因為增添新的股東成員。",
-    icon: Users,
+interface ServicesSectionProps {
+  language?: 'en' | 'zh'
+}
+
+const content = {
+  en: {
+    title: "Other Professional Services",
+    buttonText: "Apply for Service",
+    otherServicesTitle: "Other Secretary Services",
+    services: [
+      {
+        title: "Share Transfer",
+        description: "Share transfers occur for various reasons including business transfers, shareholding ratio changes, shareholder withdrawals, or addition of new shareholders.",
+        icon: Users,
+      },
+      {
+        title: "Accounting Services",
+        description: "According to Hong Kong Companies Ordinance Cap. 622, limited companies must prepare annual financial statements and maintain relevant accounting records.",
+        icon: Calculator,
+      },
+      {
+        title: "Limited Company Tax Filing",
+        description: "Newly established companies will receive a profits tax return within 18 months of establishment, which must be submitted with audit report and tax computation within 3 months.",
+        icon: FileText,
+      }
+    ]
   },
-  {
-    title: "會計服務",
-    description: "根據香港《公司條例》第622章規定，有限公司每年必須為公司在每一年準備財務報表並保存相關會計紀錄。",
-    icon: Calculator,
-  },
-  {
-    title: "有限公司報稅",
-    description: "新成立的公司會於成立起計第18個月，收到利得稅報稅表，公司須於3個月內連同審計報告和利得稅計算表遞交。",
-    icon: FileText,
+  zh: {
+    title: "其他專業服務",
+    buttonText: "服務申請",
+    otherServicesTitle: "其他秘書服務",
+    services: [
+      {
+        title: "股份轉讓",
+        description: "公司股份轉讓時常都會發生，原因可以是生意轉讓，可以是更改股權比例，股東退股，亦可因為增添新的股東成員。",
+        icon: Users,
+      },
+      {
+        title: "會計服務",
+        description: "根據香港《公司條例》第622章規定，有限公司每年必須為公司在每一年準備財務報表並保存相關會計紀錄。",
+        icon: Calculator,
+      },
+      {
+        title: "有限公司報稅",
+        description: "新成立的公司會於成立起計第18個月，收到利得稅報稅表，公司須於3個月內連同審計報告和利得稅計算表遞交。",
+        icon: FileText,
+      }
+    ]
   }
-]
+}
 
 const additionalServices = [
   { name: "虛擬辦公室", price: "1000", unit: "年" },
@@ -51,7 +84,9 @@ const additionalServices = [
   { name: "備製會議紀錄", price: "500", note: "/份" }
 ]
 
-export function ServicesSection() {
+export function ServicesSection({ language = 'en' }: ServicesSectionProps) {
+  const text = content[language];
+
   return (
     <section className={cn("w-full py-12 md:py-24 lg:py-32 bg-background")}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1200px]">
@@ -63,12 +98,12 @@ export function ServicesSection() {
           transition={{ duration: 0.5 }}
         >
           <h2 className={cn("text-3xl sm:text-4xl font-bold text-foreground mb-4")}>
-            其他專業服務
+            {text.title}
           </h2>
         </motion.div>
 
         <div className={cn("grid grid-cols-1 md:grid-cols-3 gap-8 mb-20")}>
-          {otherServices.map((service, index) => (
+          {text.services.map((service, index) => (
             <motion.div
               key={service.title}
               className={cn(
@@ -107,7 +142,7 @@ export function ServicesSection() {
                 variant="link"
                 className={cn("mt-4 p-0 h-auto text-primary hover:text-primary/90")}
               >
-                服務申請
+                {text.buttonText}
               </Button>
             </motion.div>
           ))}
@@ -123,7 +158,7 @@ export function ServicesSection() {
           <h3
             className={cn("text-2xl font-bold mb-6 text-foreground")}
           >
-            其他秘書服務
+            {text.otherServicesTitle}
           </h3>
           <div className={cn("grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4")}>
             {additionalServices.map((service, index) => (

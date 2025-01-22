@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { ReactNode } from 'react'
 
 interface FloatingElement {
   id: number
@@ -14,9 +15,10 @@ interface FloatingElement {
 interface FloatingElementsProps {
   count?: number
   className?: string
+  children?: ReactNode
 }
 
-export function FloatingElements({ count = 10, className = '' }: FloatingElementsProps) {
+export function FloatingElements({ count = 10, className = '', children }: FloatingElementsProps) {
   const elements: FloatingElement[] = Array.from({ length: count }, (_, i) => ({
     id: i,
     x: Math.random() * 100,
@@ -52,6 +54,7 @@ export function FloatingElements({ count = 10, className = '' }: FloatingElement
           }}
         />
       ))}
+      {children}
     </div>
   )
 }
