@@ -7,8 +7,21 @@ import { Logo } from "@/components/logo"
 import { Banner } from "./components-banner"
 import { PricingSection } from "./components-pricing"
 import { ServicesSection } from "./components-services"
+import { useRouter } from "next/navigation"
 
 export function HomePage() {
+  const router = useRouter();
+
+  const handleGetStarted = () => {
+    // WhatsApp link with Hong Kong phone number
+    const whatsappUrl = `https://wa.me/85295311156`;
+    window.open(whatsappUrl, '_blank');
+  };
+
+  const handleLearnMore = () => {
+    router.push('/services');  // Navigate to services page
+  };
+
   return (
     <>
       {/* Hero Section */}
@@ -36,10 +49,19 @@ export function HomePage() {
                   We help companies grow, innovate, and succeed.
                 </p>
                 <div className="flex flex-wrap gap-4">
-                  <Button size="lg" className="bg-primary hover:bg-primary/90 min-w-[140px]">
+                  <Button 
+                    size="lg" 
+                    className="bg-primary hover:bg-primary/90 min-w-[140px]"
+                    onClick={handleGetStarted}
+                  >
                     Get Started
                   </Button>
-                  <Button size="lg" variant="outline" className="min-w-[140px]">
+                  <Button 
+                    size="lg" 
+                    variant="outline" 
+                    className="min-w-[140px]"
+                    onClick={handleLearnMore}
+                  >
                     Learn More
                   </Button>
                 </div>

@@ -7,68 +7,62 @@ import Image from "next/image"
 const content = {
   en: {
     title: "About Pinnaclewise",
-    subtitle: "Your trusted partner in professional company services since 2013",
+    subtitle: "Next-Generation AI-Powered Professional Services",
     stats: [
-      { icon: Building2, title: "10+ Years", desc: "Of Excellence" },
-      { icon: Users, title: "1000+", desc: "Satisfied Clients" },
-      { icon: Award, title: "Award Winning", desc: "Services" }
+      { icon: Building2, title: "AI-Powered", desc: "Smart Solutions" },
+      { icon: Users, title: "24/7", desc: "Automated Service" },
+      { icon: Award, title: "99.9%", desc: "Accuracy Rate" }
     ],
     story: {
-      title: "Our Story",
-      text: "Founded in 2013, Pinnaclewise has grown from a small startup to one of Hong Kong's leading professional services firms. Our journey has been marked by continuous innovation and an unwavering commitment to excellence.",
+      title: "Our Innovation",
+      text: "Pinnaclewise leverages cutting-edge artificial intelligence to revolutionize professional services. Our AI-powered platform enhances traditional accounting and auditing processes with automated data analysis, real-time error detection, and predictive insights. We combine advanced machine learning algorithms with professional expertise to deliver faster, more accurate, and more cost-effective solutions.",
       image: "/placeholder.svg?height=400&width=600"
     },
-    team: {
-      title: "Our Leadership Team",
-      members: [
+    services: {
+      title: "AI-Enhanced Services",
+      features: [
         {
-          name: "Adam Ho",
-          title: "Founder & CEO",
-          image: "/placeholder.svg?height=300&width=300"
+          title: "Intelligent Audit",
+          description: "Our AI systems analyze 100% of transactions, not just samples, identifying patterns and anomalies with unprecedented accuracy."
         },
         {
-          name: "Sarah Chen",
-          title: "Chief Operations Officer",
-          image: "/placeholder.svg?height=300&width=300"
+          title: "Automated Bookkeeping",
+          description: "Real-time transaction processing and categorization with machine learning, reducing manual entry and human error."
         },
         {
-          name: "Michael Wong",
-          title: "Head of Legal Services",
-          image: "/placeholder.svg?height=300&width=300"
+          title: "Predictive Analytics",
+          description: "Advanced forecasting and business intelligence powered by AI to help you make data-driven decisions."
         }
       ]
     }
   },
   zh: {
     title: "關於鼎盛智慧",
-    subtitle: "您自2013年以來值得信賴的專業公司服務夥伴",
+    subtitle: "新一代人工智能專業服務",
     stats: [
-      { icon: Building2, title: "10年以上", desc: "專業經驗" },
-      { icon: Users, title: "1000+", desc: "滿意客戶" },
-      { icon: Award, title: "屢獲殊榮", desc: "專業服務" }
+      { icon: Building2, title: "AI驅動", desc: "智能解決方案" },
+      { icon: Users, title: "24/7", desc: "自動化服務" },
+      { icon: Award, title: "99.9%", desc: "準確率" }
     ],
     story: {
-      title: "我們的故事",
-      text: "鼎盛智慧成立於2013年，從小型初創企業成長為香港領先的專業服務公司。 我們的旅程以持續的創新和對卓越的不懈追求為標誌。",
+      title: "我們的創新",
+      text: "鼎盛智慧利用尖端人工智能革新專業服務。我們的AI驅動平台通過自動化數據分析、實時錯誤檢測和預測性洞察來增強傳統會計和審計流程。我們將先進的機器學習算法與專業知識相結合，提供更快速、更準確、更具成本效益的解決方案。",
       image: "/placeholder.svg?height=400&width=600"
     },
-    team: {
-      title: "我們的領導團隊",
-      members: [
+    services: {
+      title: "AI增強服務",
+      features: [
         {
-          name: "何先生",
-          title: "創始人兼首席執行官",
-          image: "/placeholder.svg?height=300&width=300"
+          title: "智能審計",
+          description: "我們的AI系統分析100%的交易，而不僅僅是樣本，以前所未有的準確度識別模式和異常。"
         },
         {
-          name: "陳小姐",
-          title: "首席營運官",
-          image: "/placeholder.svg?height=300&width=300"
+          title: "自動化記賬",
+          description: "通過機器學習實現實時交易處理和分類，減少人工輸入和人為錯誤。"
         },
         {
-          name: "王先生",
-          title: "法律服務負責人",
-          image: "/placeholder.svg?height=300&width=300"
+          title: "預測分析",
+          description: "由AI支持的高級預測和商業智能，幫助您做出數據驅動的決策。"
         }
       ]
     }
@@ -138,7 +132,7 @@ export function AboutPage({ language = 'en' }: { language?: 'en' | 'zh' }) {
         </div>
       </section>
 
-      {/* Company Story */}
+      {/* Innovation Story */}
       <section className="w-full py-12 md:py-24 lg:py-32 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1200px]">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -160,7 +154,7 @@ export function AboutPage({ language = 'en' }: { language?: 'en' | 'zh' }) {
             >
               <Image
                 src={text.story.image}
-                alt="Company office"
+                alt="AI Technology Visualization"
                 width={600}
                 height={400}
                 className="rounded-lg object-cover"
@@ -170,7 +164,7 @@ export function AboutPage({ language = 'en' }: { language?: 'en' | 'zh' }) {
         </div>
       </section>
 
-      {/* Team Section */}
+      {/* AI Services Section */}
       <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1200px]">
           <motion.div 
@@ -180,28 +174,20 @@ export function AboutPage({ language = 'en' }: { language?: 'en' | 'zh' }) {
             transition={{ delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">{text.team.title}</h2>
-            <p className="mt-4 text-muted-foreground md:text-lg">Meet the experts who make it all possible</p>
+            <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">{text.services.title}</h2>
           </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {text.team.members.map((member, index) => (
+            {text.services.features.map((feature, index) => (
               <motion.div 
-                key={member.name}
-                className="text-center space-y-4"
+                key={feature.title}
+                className="bg-white p-6 rounded-lg shadow-lg"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 * index }}
                 viewport={{ once: true }}
               >
-                <Image
-                  src={member.image}
-                  alt={member.name}
-                  width={300}
-                  height={300}
-                  className="rounded-full mx-auto"
-                />
-                <h3 className="text-xl font-bold">{member.name}</h3>
-                <p className="text-muted-foreground">{member.title}</p>
+                <h3 className="text-xl font-bold mb-4">{feature.title}</h3>
+                <p className="text-muted-foreground">{feature.description}</p>
               </motion.div>
             ))}
           </div>

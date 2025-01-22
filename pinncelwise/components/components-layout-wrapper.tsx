@@ -1,9 +1,14 @@
 'use client'
 
+import React from 'react'
 import { useState } from 'react'
 import { NavBar } from './components-nav-bar'
 import { Footer } from './components-footer'
 import { ContactBar } from './components-contact-bar'
+
+interface WithLanguageProps {
+  language?: 'en' | 'zh'
+}
 
 export function LayoutWrapper({
   children
@@ -11,6 +16,14 @@ export function LayoutWrapper({
   children: React.ReactNode
 }) {
   const [language, setLanguage] = useState<'en' | 'zh'>('en')
+
+  // Clone children and pass language prop
+  const childrenWithProps = React.Children.map(children, child => {
+    if (React.isValidElement<WithLanguageProps>(child)) {
+      return React.cloneElement(child, { language })
+    }
+    return child
+  })
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -23,7 +36,7 @@ export function LayoutWrapper({
         </div>
       </header>
       <main className="flex-1 w-full overflow-x-hidden">
-        {children}
+        {childrenWithProps}
       </main>
       <Footer language={language} />
     </div>
