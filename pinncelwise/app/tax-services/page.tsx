@@ -79,6 +79,10 @@ export default function TaxServicesPage({ language = 'en' }: WithLanguageProps) 
             "Property Tax: Tenancy agreement and rental records"
           ]
         }
+      },
+      contact: {
+        title: "Contact Us",
+        description: "If you have any questions about our tax services, we're here to help"
       }
     },
     zh: {
@@ -132,6 +136,10 @@ export default function TaxServicesPage({ language = 'en' }: WithLanguageProps) 
             "物業稅：租約及收租記錄"
           ]
         }
+      },
+      contact: {
+        title: "聯絡我們",
+        description: "如對稅務服務有任何疑問，我們樂意解答"
       }
     }
   }
@@ -200,12 +208,14 @@ export default function TaxServicesPage({ language = 'en' }: WithLanguageProps) 
         </div>
       </motion.section>
 
-      <ParallaxSection className="bg-muted/50 py-16">
-        <FeatureSection 
-          title={language === 'en' ? "Tax Services" : "報稅服務"}
-          features={text.services}
-        />
-      </ParallaxSection>
+      <section className="bg-muted/50 py-16">
+        <div className="container mx-auto px-4">
+          <FeatureSection
+            title={language === 'en' ? "Tax Services" : "報稅服務"}
+            features={text.services}
+          />
+        </div>
+      </section>
 
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
@@ -220,12 +230,13 @@ export default function TaxServicesPage({ language = 'en' }: WithLanguageProps) 
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {text.propertyTax.items.map((item, index) => (
-              <HoverCardEffect key={index}>
-                <div className="p-6 h-full">
-                  <h3 className="text-xl font-semibold mb-4">{item.title}</h3>
-                  <p className="text-muted-foreground">{item.description}</p>
-                </div>
-              </HoverCardEffect>
+              <Card
+                key={index}
+                className="p-6 h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+              >
+                <h3 className="text-xl font-semibold mb-4">{item.title}</h3>
+                <p className="text-muted-foreground">{item.description}</p>
+              </Card>
             ))}
           </div>
 
@@ -257,8 +268,7 @@ export default function TaxServicesPage({ language = 'en' }: WithLanguageProps) 
           </motion.h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <HoverCardEffect>
-              <div className="p-6 h-full">
+              <Card className="p-6 h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
                 <h3 className="text-xl font-semibold mb-4">{text.important.deadlines.title}</h3>
                 <ul className="space-y-2">
                   {text.important.deadlines.items.map((item, index) => (
@@ -268,11 +278,9 @@ export default function TaxServicesPage({ language = 'en' }: WithLanguageProps) 
                     </li>
                   ))}
                 </ul>
-              </div>
-            </HoverCardEffect>
+              </Card>
 
-            <HoverCardEffect>
-              <div className="p-6 h-full">
+              <Card className="p-6 h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
                 <h3 className="text-xl font-semibold mb-4">{text.important.documents.title}</h3>
                 <ul className="space-y-2">
                   {text.important.documents.items.map((item, index) => (
@@ -282,8 +290,7 @@ export default function TaxServicesPage({ language = 'en' }: WithLanguageProps) 
                     </li>
                   ))}
                 </ul>
-              </div>
-            </HoverCardEffect>
+              </Card>
           </div>
         </div>
       </section>
@@ -294,9 +301,9 @@ export default function TaxServicesPage({ language = 'en' }: WithLanguageProps) 
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
       >
-        <ContactSection 
-          title="聯絡我們"
-          description="如對稅務服務有任何疑問，我們樂意解答"
+        <ContactSection
+          title={text.contact.title}
+          description={text.contact.description}
           phone="+852 9531 1156"
           whatsapp="+852 9531 1156"
         />
