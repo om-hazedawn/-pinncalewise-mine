@@ -1,6 +1,6 @@
 'use client'
 
-import { Mail, Phone } from 'lucide-react'
+import { Mail, Phone, MessageSquare } from 'lucide-react'
 
 export function ContactBar() {
   return (
@@ -16,12 +16,13 @@ export function ContactBar() {
           </div>
         </div>
         <div className="flex items-center space-x-6">
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center gap-2">
             <Phone className="h-4 w-4" />
-            <a href="tel:+85235801380">Call Now: +852 3580 1380</a>
+            <a href="tel:+85295311156">Call Now: +852 9531 1156</a>
           </div>
-          <div className="flex items-center space-x-2">
-            <span>WhatsApp: +852 6706 0903</span>
+          <div className="flex items-center gap-2">
+            <MessageSquare className="w-4 h-4" />
+            <span>WhatsApp: +852 9531 1156</span>
           </div>
         </div>
       </div>

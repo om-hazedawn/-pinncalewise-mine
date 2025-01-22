@@ -6,7 +6,11 @@ import { ContactSection } from '@/components/contact-section'
 import { motion } from 'framer-motion'
 import { Card } from '@/components/ui/card'
 
-export default function SecretaryServicesPage() {
+interface WithLanguageProps {
+  language?: 'en' | 'zh'
+}
+
+export default function SecretaryServicesPage({ language = 'en' }: WithLanguageProps) {
   const secretaryServices = [
     { 
       title: '基本秘書服務', 
@@ -190,9 +194,9 @@ export default function SecretaryServicesPage() {
 
       <ContactSection 
         title="聯絡我們"
-        description="如對公司秘書服務有任何疑問，我們的專業團隊樂意為您解答"
-        phone="(852) 3580 1380"
-        whatsapp="(852) 6706 0903"
+        description="如對公司秘書服務有任何疑問，我們樂意解答"
+        phone="+852 9531 1156"
+        whatsapp="+852 9531 1156"
       />
     </div>
   )

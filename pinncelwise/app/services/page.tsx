@@ -3,7 +3,6 @@
 import { LayoutWrapper } from '@/components/components-layout-wrapper'
 import { motion } from 'framer-motion'
 import { Briefcase, Building2, FileText, LucideIcon, Scale, Users2 } from 'lucide-react'
-import { useState } from 'react'
 
 const content = {
   en: {
@@ -77,6 +76,10 @@ interface ServiceCardProps {
   index: number
 }
 
+interface WithLanguageProps {
+  language?: 'en' | 'zh'
+}
+
 function ServiceCard({ icon: Icon, title, description, index }: ServiceCardProps) {
   return (
     <motion.div
@@ -92,8 +95,7 @@ function ServiceCard({ icon: Icon, title, description, index }: ServiceCardProps
   )
 }
 
-export default function Services() {
-  const [language, setLanguage] = useState<'en' | 'zh'>('en')
+export default function Services({ language = 'en' }: WithLanguageProps) {
   const text = content[language]
 
   return (

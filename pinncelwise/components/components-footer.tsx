@@ -122,9 +122,9 @@ export function Footer({ language = 'en' }: FooterProps) {
                   <p>{translations.addressLine4}</p>
                 </div>
               </div>
-              <div className="flex items-center space-x-3">
-                <Phone className="w-5 h-5" />
-                <p>+852 3580 1380</p>
+              <div className="flex items-center space-x-2">
+                <Phone className="h-4 w-4" />
+                <p>+852 9531 1156</p>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="w-5 h-5" />

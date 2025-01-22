@@ -175,8 +175,8 @@ export default function AccountingPage() {
         <ContactSection 
           title="聯絡我們"
           description="如對毅思會計的服務有任何疑問，我們樂意解答"
-          phone="(852) 3580 1380"
-          whatsapp="(852) 6706 0903"
+          phone="+852 9531 1156"
+          whatsapp="+852 9531 1156"
         />
       </motion.div>
     </div>

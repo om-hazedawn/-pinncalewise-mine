@@ -13,7 +13,11 @@ import { useRef } from 'react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Steps } from '@/components/steps'
 
-export default function OpenCompanyPage() {
+interface WithLanguageProps {
+  language?: 'en' | 'zh'
+}
+
+export default function OpenCompanyPage({ language = 'en' }: WithLanguageProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -277,10 +281,10 @@ export default function OpenCompanyPage() {
         transition={{ duration: 0.5 }}
       >
         <ContactSection 
-          title="立即諮詢"
+          title="聯絡我們"
           description="如對成立香港公司有任何疑問，我們的專業顧問樂意為您解答"
-          phone="(852) 3580 1380"
-          whatsapp="(852) 6706 0903"
+          phone="+852 9531 1156"
+          whatsapp="+852 9531 1156"
         />
       </motion.div>
     </div>
