@@ -1,8 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { LayoutWrapper } from "@/components/components-layout-wrapper";
 import { defaultMetadata } from "@/lib/metadata";
+import { NavBar } from "@/components/nav-bar";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,7 +44,7 @@ export const metadata: Metadata = {
         alt: 'Pinnaclewise',
       },
     ],
-    locale: 'en_US',
+    locale: 'en',
     type: 'website',
   },
   twitter: {
@@ -72,19 +73,34 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://pinnaclewise.com'),
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+type RootLayoutProps = {
+  children: React.ReactNode
+  params: { lang?: string }
+}
+
+export default function RootLayout(props: RootLayoutProps) {
+  const language = props.params?.lang === 'zh' ? 'zh' : 'en';
+
   return (
-    <html 
-      lang="en" 
-      className={`${geistSans.variable} ${geistMono.variable}`}
-      suppressHydrationWarning
-    >
-      <head>
-        <script
+    <html lang={language === 'zh' ? 'zh-HK' : 'en'} suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className="font-sans antialiased">
+        {/* Google Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-ZRHLCEY42Y"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-ZRHLCEY42Y');
+          `}
+        </Script>
+        
+        {/* Schema.org */}
+        <Script
+          id="schema-org"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
@@ -129,9 +145,14 @@ export default function RootLayout({
             })
           }}
         />
-      </head>
-      <body className="min-h-screen bg-background font-sans antialiased">
-        <LayoutWrapper>{children}</LayoutWrapper>
+        <div className="relative min-h-screen flex flex-col">
+          <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <div className="container flex h-14 items-center">
+              <NavBar language={language} />
+            </div>
+          </header>
+          {props.children}
+        </div>
       </body>
     </html>
   );

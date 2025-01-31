@@ -46,14 +46,14 @@ export const defaultMetadata: Metadata = {
     description: 'Professional accounting services in Hong Kong. Expert bookkeeping, audit, tax filing, and company secretary services. Trusted by local and international businesses.',
     url: 'https://pinnaclewise.com',
     siteName: 'Pinnaclewise',
-    locale: 'en_US',
+    locale: 'en',
     type: 'website',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Pinnaclewise - Professional Accounting Services in Hong Kong',
+        alt: 'Pinnaclewise',
       }
     ],
   },
