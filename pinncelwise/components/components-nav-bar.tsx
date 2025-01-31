@@ -9,18 +9,17 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Globe } from 'lucide-react'
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { Logo } from "@/components/logo"
-import Image from "next/image"
 
 interface NavBarProps {
   language: 'en' | 'zh'
-  setLanguage: (language: 'en' | 'zh') => void
 }
 
-export function NavBar({ language = 'en', setLanguage }: NavBarProps) {
+export function NavBar({ language = 'en' }: NavBarProps) {
   const pathname = usePathname()
+  const router = useRouter()
 
   const translations = {
     en: {
@@ -53,6 +52,12 @@ export function NavBar({ language = 'en', setLanguage }: NavBarProps) {
     }
   }
 
+  const switchLanguage = (newLang: 'en' | 'zh') => {
+    const currentLang = pathname.split('/')[1]
+    const newPath = pathname.replace(`/${currentLang}`, '') || '/'
+    router.push(newLang === 'en' ? newPath : `/${newLang}${newPath}`)
+  }
+
   const links = [
     { href: "/", label: translations[language].home },
     { href: "/open-company", label: translations[language].openCompany },
@@ -69,7 +74,7 @@ export function NavBar({ language = 'en', setLanguage }: NavBarProps) {
 
   return (
     <div className="flex items-center justify-between w-full">
-      <Link href="/" className="flex items-center space-x-3 hover:opacity-90 transition-opacity">
+      <Link href={language === 'en' ? '/' : '/zh'} className="flex items-center space-x-3 hover:opacity-90 transition-opacity">
         <Logo width={32} height={32} />
         <span className="font-semibold text-xl tracking-tight">
           Pinnacle<span className="text-primary">Wise</span>
@@ -80,7 +85,7 @@ export function NavBar({ language = 'en', setLanguage }: NavBarProps) {
         {links.map((link) => (
           <Link
             key={link.href}
-            href={link.href}
+            href={language === 'en' ? link.href : `/zh${link.href}`}
             className={cn(
               "text-sm font-medium transition-colors hover:text-primary",
               pathname === link.href ? "text-primary" : "text-muted-foreground"
@@ -100,10 +105,10 @@ export function NavBar({ language = 'en', setLanguage }: NavBarProps) {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={() => setLanguage('en')}>
+            <DropdownMenuItem onClick={() => switchLanguage('en')}>
               English
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setLanguage('zh')}>
+            <DropdownMenuItem onClick={() => switchLanguage('zh')}>
               中文
             </DropdownMenuItem>
           </DropdownMenuContent>

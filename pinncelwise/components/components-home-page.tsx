@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
@@ -130,7 +130,7 @@ export function HomePage({ language = 'en' }: HomePageProps) {
   };
 
   return (
-    <>
+    <div>
       {/* Hero Section */}
       <section className="w-full py-12 md:py-24 lg:py-32 bg-background relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-secondary/5 pointer-events-none" />
@@ -149,26 +149,17 @@ export function HomePage({ language = 'en' }: HomePageProps) {
                 <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-foreground whitespace-pre-line">
                   {text.hero.title}
                 </h1>
-                <p className="text-xl text-muted-foreground max-w-[600px]">
+                <p className="text-xl text-muted-foreground">
                   {text.hero.subtitle}
                 </p>
-                <div className="flex flex-wrap gap-4">
-                  <Button 
-                    size="lg" 
-                    className="bg-primary hover:bg-primary/90 min-w-[140px]"
-                    onClick={handleGetStarted}
-                  >
-                    {text.hero.buttons.getStarted}
-                  </Button>
-                  <Button 
-                    size="lg" 
-                    variant="outline" 
-                    className="min-w-[140px]"
-                    onClick={handleLearnMore}
-                  >
-                    {text.hero.buttons.learnMore}
-                  </Button>
-                </div>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button onClick={handleGetStarted} size="lg">
+                  {text.hero.buttons.getStarted}
+                </Button>
+                <Button onClick={handleLearnMore} variant="outline" size="lg">
+                  {text.hero.buttons.learnMore}
+                </Button>
               </div>
             </motion.div>
             <motion.div
@@ -256,6 +247,6 @@ export function HomePage({ language = 'en' }: HomePageProps) {
           </div>
         </div>
       </section>
-    </>
+    </div>
   )
 }

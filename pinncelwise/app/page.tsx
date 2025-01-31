@@ -19,12 +19,21 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://pinnaclewise.com",
     languages: {
-      'en-US': '/en',
+      'en': '/en',
       'zh-HK': '/zh'
     },
   }
 }
 
-export default function Page() {
-  return <HomePage />
+interface PageProps {
+  params: { lang?: string }
+}
+
+export default function Page({ params }: PageProps) {
+  const language = params.lang === 'zh' ? 'zh' : 'en'
+  return (
+    <main>
+      <HomePage language={language} />
+    </main>
+  )
 }

@@ -6,7 +6,8 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function formatDate(date: string) {
-  return new Date(date).toLocaleDateString('zh-HK', {
+  const locale = typeof window !== 'undefined' ? window.navigator.language : 'en';
+  return new Date(date).toLocaleDateString(locale, {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
