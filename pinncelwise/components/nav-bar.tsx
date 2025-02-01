@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation"
 
 interface NavBarProps {
   language?: 'en' | 'zh'
+  setLanguage?: (lang: 'en' | 'zh') => void
 }
 
 const content = {
@@ -25,7 +26,7 @@ const content = {
   }
 }
 
-export function NavBar({ language = 'en' }: NavBarProps) {
+export function NavBar({ language = 'en', setLanguage }: NavBarProps) {
   const pathname = usePathname()
   const text = content[language]
   const oppositeLanguage = language === 'en' ? 'zh' : 'en'
@@ -57,12 +58,12 @@ export function NavBar({ language = 'en' }: NavBarProps) {
           ))}
         </nav>
       </div>
-      <Link 
-        href={`/${oppositeLanguage}${pathname}`} 
-        className="text-sm font-medium text-foreground/60 transition-colors hover:text-foreground/80"
+      <button
+        onClick={() => setLanguage?.(language === 'en' ? 'zh' : 'en')}
+        className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
       >
-        {text.language}
-      </Link>
+        {content[language].language}
+      </button>
     </div>
   )
 }

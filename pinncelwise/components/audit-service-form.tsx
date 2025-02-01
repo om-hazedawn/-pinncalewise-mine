@@ -4,24 +4,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { Button } from "@/components/ui/button"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
+import { Form, FormField, FormLabel, FormControl, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { useRouter } from 'next/navigation'
 import { toast } from 'react-hot-toast'
 
@@ -152,154 +137,80 @@ export function AuditServiceForm({ language }: AuditServiceFormProps) {
           <p className="text-muted-foreground">{t.subtitle}</p>
         </div>
 
-        <FormField
-          control={form.control}
-          name="serviceType"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t.serviceType} *</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder={t.monthlyAccounting} />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="monthly">{t.monthlyAccounting}</SelectItem>
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <FormField>
+          <FormLabel>{t.serviceType} *</FormLabel>
+          <FormControl>
+            <Input type="text" {...form.register('serviceType')} />
+          </FormControl>
+          <FormMessage />
+        </FormField>
 
-        <FormField
-          control={form.control}
-          name="businessNature"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t.businessNature} *</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <FormField>
+          <FormLabel>{t.businessNature} *</FormLabel>
+          <FormControl>
+            <Input type="text" {...form.register('businessNature')} />
+          </FormControl>
+          <FormMessage />
+        </FormField>
 
-        <FormField
-          control={form.control}
-          name="recordsComplete"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t.recordsComplete}</FormLabel>
-              <FormControl>
-                <RadioGroup
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                  className="flex flex-col space-y-1"
-                >
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="complete" />
-                    </FormControl>
-                    <FormLabel className="font-normal">
-                      {t.complete}
-                    </FormLabel>
-                  </FormItem>
-                </RadioGroup>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <FormField>
+          <FormLabel>{t.recordsComplete}</FormLabel>
+          <FormControl>
+            <Input type="text" {...form.register('recordsComplete')} />
+          </FormControl>
+          <FormMessage />
+        </FormField>
 
-        <FormField
-          control={form.control}
-          name="annualRevenue"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t.annualRevenue}</FormLabel>
-              <FormControl>
-                <Input {...field} type="number" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <FormField>
+          <FormLabel>{t.annualRevenue}</FormLabel>
+          <FormControl>
+            <Input type="number" {...form.register('annualRevenue')} />
+          </FormControl>
+          <FormMessage />
+        </FormField>
 
-        <FormField
-          control={form.control}
-          name="monthlyTransactions"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t.monthlyTransactions} *</FormLabel>
-              <FormControl>
-                <Input {...field} type="number" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <FormField>
+          <FormLabel>{t.monthlyTransactions} *</FormLabel>
+          <FormControl>
+            <Input type="number" {...form.register('monthlyTransactions')} />
+          </FormControl>
+          <FormMessage />
+        </FormField>
 
-        <FormField
-          control={form.control}
-          name="serviceRequirements"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t.serviceRequirements}</FormLabel>
-              <FormControl>
-                <Textarea {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <FormField>
+          <FormLabel>{t.serviceRequirements}</FormLabel>
+          <FormControl>
+            <Textarea {...form.register('serviceRequirements')} />
+          </FormControl>
+          <FormMessage />
+        </FormField>
 
         <div>
           <h3 className="text-lg font-semibold mb-4">{t.contactInfo}</h3>
           <div className="space-y-4">
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t.name} *</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <FormField>
+              <FormLabel>{t.name} *</FormLabel>
+              <FormControl>
+                <Input type="text" {...form.register('name')} />
+              </FormControl>
+              <FormMessage />
+            </FormField>
 
-            <FormField
-              control={form.control}
-              name="phone"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t.phone} *</FormLabel>
-                  <FormControl>
-                    <Input {...field} type="tel" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <FormField>
+              <FormLabel>{t.phone} *</FormLabel>
+              <FormControl>
+                <Input type="tel" {...form.register('phone')} />
+              </FormControl>
+              <FormMessage />
+            </FormField>
 
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t.email} *</FormLabel>
-                  <FormControl>
-                    <Input {...field} type="email" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <FormField>
+              <FormLabel>{t.email} *</FormLabel>
+              <FormControl>
+                <Input type="email" {...form.register('email')} />
+              </FormControl>
+              <FormMessage />
+            </FormField>
           </div>
         </div>
 

@@ -10,11 +10,11 @@ import { ParallaxSection } from '@/components/parallax-section'
 import { HoverCardEffect } from '@/components/hover-card-effect'
 import { FloatingElements } from '@/components/floating-elements'
 import { useRef } from 'react'
-import type { Metadata } from 'next'
-import { generateMetadata as genMeta } from '@/lib/metadata'
 
-interface WithLanguageProps {
-  language?: 'en' | 'zh'
+interface Props {
+  params: {
+    lang: string
+  }
 }
 
 const content = {
@@ -93,200 +93,42 @@ const content = {
       { title: '按揭轉介', items: ['按揭諮詢', '利率比較', '貸款申請'] },
       { title: '中小企貸款', items: ['貸款評估', '申請協助', '還款計劃'] },
       { title: '經核證真實副本', items: ['文件核證', '公證服務'] },
-      { title: '企業電郵', items: ['郵箱設置', '域名註冊', '技術支援'] },
-      { title: '公司開戶', items: ['銀行介紹', '開戶協助', '文件準備'] }
+      { title: '企業電郵', items: ['電郵設置', '域名註冊', '技術支援'] },
+      { title: '銀行開戶', items: ['銀行介紹', '開戶協助', '文件準備'] }
     ],
     sections: {
       mainServices: "主要服務",
       otherServices: "其他商業支援服務",
-      whyUs: "為何選擇我們？",
+      whyUs: "為何選擇我們",
       reliability: {
         title: "專業可靠",
         points: [
-          "價錢合理，專注協助中小企發展",
-          "免費諮詢，讓客戶了解法定責任"
+          "收費合理，專注中小企發展",
+          "免費諮詢了解法定責任"
         ]
       },
       efficiency: {
-        title: "高效便捷",
+        title: "快捷方便",
         points: [
-          "一條龍服務，節省客戶成本和時間",
-          "事前部署安排，節省不必要稅款"
+          "一站式服務節省成本及時間",
+          "預先部署安排節省不必要稅項"
         ]
       }
     },
     contact: {
       title: "聯絡我們",
-      description: "如對毅思會計的服務有任何疑問，我們樂意解答"
+      description: "如果您對毅思會計的服務有任何疑問，我們很樂意為您解答"
     }
   }
 }
 
-export default function AccountingPage({ language = 'en' }: WithLanguageProps) {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end end']
-  })
+import { AccountingClientPage } from './client'
 
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
-  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8])
+interface PageProps {
+  params: Promise<{ lang: string }>
+}
 
-  const text = content[language]
-  
-  return (
-    <div ref={containerRef}>
-      <div className="relative">
-        <ServiceHero
-          title={text.hero.title}
-          subtitle={text.hero.subtitle}
-          imageUrl="/images/accounting-hero.jpg"
-        />
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-secondary/5 pointer-events-none" />
-        <FloatingElements className="z-0" />
-      </div>
-
-      <motion.section
-        style={{ opacity, scale }}
-        className="py-16 bg-white"
-      >
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center"
-            >
-              <div className="text-4xl font-bold mb-2">
-                <AnimatedCounter end={3000} suffix="+" />
-              </div>
-              <p className="text-muted-foreground">{text.stats.clients}</p>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="text-center"
-            >
-              <div className="text-4xl font-bold mb-2">
-                <AnimatedCounter end={15} suffix="+" />
-              </div>
-              <p className="text-muted-foreground">{text.stats.experience}</p>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
-              className="text-center"
-            >
-              <div className="text-4xl font-bold mb-2">
-                <AnimatedCounter end={24} suffix="/7" />
-              </div>
-              <p className="text-muted-foreground">{text.stats.support}</p>
-            </motion.div>
-          </div>
-
-          <div className="max-w-3xl mx-auto text-center">
-            <p className="text-lg text-muted-foreground">
-              {text.about}
-            </p>
-          </div>
-        </div>
-      </motion.section>
-
-      <section className="bg-muted/50 py-16">
-        <motion.div
-          style={{
-            y: useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
-          }}
-        >
-          <FeatureSection
-            title={text.sections.mainServices}
-            features={text.mainServices}
-          />
-        </motion.div>
-      </section>
-
-      <section className="bg-white py-16">
-        <motion.div
-          style={{
-            y: useTransform(scrollYProgress, [0, 1], ['0%', '-30%'])
-          }}
-        >
-          <FeatureSection
-            title={text.sections.otherServices}
-            features={text.additionalServices}
-          />
-        </motion.div>
-      </section>
-
-      <section className="py-16 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-3xl font-bold text-center mb-12"
-          >
-            {text.sections.whyUs}
-          </motion.h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <motion.div
-              className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <div className="p-6 h-full">
-                <h3 className="text-xl font-semibold mb-4">{text.sections.reliability.title}</h3>
-                <ul className="space-y-2">
-                  {text.sections.reliability.points.map((point, index) => (
-                    <li key={index} className="flex items-center">
-                      <span className="mr-2">✓</span>
-                      {point}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </motion.div>
-  
-            <motion.div
-              className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <div className="p-6 h-full">
-                <h3 className="text-xl font-semibold mb-4">{text.sections.efficiency.title}</h3>
-                <ul className="space-y-2">
-                  {text.sections.efficiency.points.map((point, index) => (
-                    <li key={index} className="flex items-center">
-                      <span className="mr-2">✓</span>
-                      {point}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-      >
-        <ContactSection
-          title={text.contact.title}
-          description={text.contact.description}
-          phone="+852 9531 1156"
-          whatsapp="+852 9531 1156"
-        />
-      </motion.div>
-    </div>
-  )
+export default async function AccountingPage({ params }: PageProps) {
+  const { lang } = await params
+  return <AccountingClientPage lang={lang} />
 }

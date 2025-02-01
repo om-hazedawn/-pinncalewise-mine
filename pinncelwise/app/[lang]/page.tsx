@@ -3,7 +3,7 @@ import { Metadata } from "next"
 import { locales } from "@/lib/i18n"
 
 interface PageProps {
-  params: { lang: string }
+  params: Promise<{ lang: string }>
 }
 
 export async function generateStaticParams() {
@@ -12,8 +12,9 @@ export async function generateStaticParams() {
   }))
 }
 
-export default function Page({ params }: PageProps) {
-  const language = params?.lang === 'zh' ? 'zh' : 'en'
+export default async function Page({ params }: PageProps) {
+  const { lang } = await params
+  const language = lang === 'zh' ? 'zh' : 'en'
   
   return (
     <main className="flex-1">

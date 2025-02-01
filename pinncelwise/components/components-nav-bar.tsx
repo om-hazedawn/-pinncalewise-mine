@@ -15,105 +15,78 @@ import { Logo } from "@/components/logo"
 
 interface NavBarProps {
   language: 'en' | 'zh'
+  setLanguage: (lang: 'en' | 'zh') => void
 }
 
-export function NavBar({ language = 'en' }: NavBarProps) {
+export function NavBar({ language = 'en', setLanguage }: NavBarProps) {
   const pathname = usePathname()
   const router = useRouter()
 
-  const translations = {
+  const content = {
     en: {
       home: "Home",
-      openCompany: "Open Company",
-      closeCompany: "Close Company",
-      secretaryServices: "Secretary Services",
-      accounting: "Accounting",
-      taxServices: "Tax Services",
-      auditServices: "Audit Services",
-      otherServices: "Other Services",
-      tools: "Tools",
+      services: "Services",
       blog: "Blog",
       contact: "Contact",
-      language: "Language"
+      language: "中文"
     },
     zh: {
-      home: "主頁",
-      openCompany: "開公司",
-      closeCompany: "註銷公司",
-      secretaryServices: "公司秘書服務",
-      accounting: "會計理賬",
-      taxServices: "報稅服務",
-      auditServices: "核數服務",
-      otherServices: "其他服務",
-      tools: "實用工具",
-      blog: "毅思博客",
+      home: "首頁",
+      services: "服務",
+      blog: "文章",
       contact: "聯絡我們",
-      language: "語言"
+      language: "English"
     }
   }
 
-  const switchLanguage = (newLang: 'en' | 'zh') => {
-    const currentLang = pathname.split('/')[1]
-    const newPath = pathname.replace(`/${currentLang}`, '') || '/'
-    router.push(newLang === 'en' ? newPath : `/${newLang}${newPath}`)
-  }
+  const text = content[language]
 
-  const links = [
-    { href: "/", label: translations[language].home },
-    { href: "/open-company", label: translations[language].openCompany },
-    { href: "/close-company", label: translations[language].closeCompany },
-    { href: "/secretary-services", label: translations[language].secretaryServices },
-    { href: "/accounting", label: translations[language].accounting },
-    { href: "/tax-services", label: translations[language].taxServices },
-    { href: "/audit-services", label: translations[language].auditServices },
-    { href: "/other-services", label: translations[language].otherServices },
-    { href: "/tools", label: translations[language].tools },
-    { href: "/blog", label: translations[language].blog },
-    { href: "/contact", label: translations[language].contact },
+  const navigation = [
+    { name: text.home, href: '/' },
+    { name: text.services, href: '/services' },
+    { name: text.blog, href: '/blog' },
+    { name: text.contact, href: '/contact' },
   ]
 
   return (
-    <div className="flex items-center justify-between w-full">
-      <Link href={language === 'en' ? '/' : '/zh'} className="flex items-center space-x-3 hover:opacity-90 transition-opacity">
-        <Logo width={32} height={32} />
-        <span className="font-semibold text-xl tracking-tight">
-          Pinnacle<span className="text-primary">Wise</span>
-        </span>
-      </Link>
-      
-      <nav className="hidden md:flex items-center space-x-4 lg:space-x-6">
-        {links.map((link) => (
-          <Link
-            key={link.href}
-            href={language === 'en' ? link.href : `/zh${link.href}`}
-            className={cn(
-              "text-sm font-medium transition-colors hover:text-primary",
-              pathname === link.href ? "text-primary" : "text-muted-foreground"
-            )}
-          >
-            {link.label}
-          </Link>
-        ))}
-      </nav>
+    <div className="flex items-center justify-between">
+      <div className="flex items-center gap-8">
+        <Link href="/" className="flex items-center space-x-2">
+          <Logo className="h-8 w-8" />
+          <span className="font-bold">Pinnaclewise</span>
+        </Link>
 
-      <div className="flex items-center space-x-4">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon">
-              <Globe className="h-4 w-4" />
-              <span className="sr-only">{translations[language].language}</span>
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={() => switchLanguage('en')}>
-              English
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => switchLanguage('zh')}>
-              中文
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <nav className="hidden md:flex items-center space-x-6">
+          {navigation.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={cn(
+                "text-sm font-medium transition-colors hover:text-foreground/80",
+                pathname === item.href ? "text-foreground" : "text-foreground/60"
+              )}
+            >
+              {item.name}
+            </Link>
+          ))}
+        </nav>
       </div>
+
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" size="sm">
+            <Globe className="h-5 w-5" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuItem onClick={() => setLanguage('en')}>
+            English
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setLanguage('zh')}>
+            中文
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
   )
 }

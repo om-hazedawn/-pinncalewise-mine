@@ -139,7 +139,7 @@ export function ServicesSection({ language = 'en' }: ServicesSectionProps) {
                 {service.description}
               </p>
               <Button
-                variant="link"
+                variant="ghost"
                 className={cn("mt-4 p-0 h-auto text-primary hover:text-primary/90")}
               >
                 {text.buttonText}
