@@ -1,5 +1,5 @@
-import { HomePage } from "@/components/components-home-page"
-import type { Metadata } from "next"
+import { HomeClientPage } from './client'
+import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: "Pinnaclewise | Professional Accounting & Company Services in Hong Kong",
@@ -26,14 +26,10 @@ export const metadata: Metadata = {
 }
 
 interface PageProps {
-  params: { lang?: string }
+  params: Promise<{ lang?: string }>
 }
 
-export default function Page({ params }: PageProps) {
-  const language = params.lang === 'zh' ? 'zh' : 'en'
-  return (
-    <main>
-      <HomePage language={language} />
-    </main>
-  )
+export default async function HomePage({ params }: PageProps) {
+  const { lang } = await params
+  return <HomeClientPage lang={lang} />
 }

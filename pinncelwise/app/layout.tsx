@@ -1,21 +1,16 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from 'next/font/google'
 import "./globals.css";
 import { defaultMetadata } from "@/lib/metadata";
 import { NavBar } from "@/components/nav-bar";
 import Script from "next/script";
+import { cn } from '@/lib/utils';
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap",
-});
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-sans',
+})
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -82,8 +77,13 @@ export default function RootLayout(props: RootLayoutProps) {
   const language = props.params?.lang === 'zh' ? 'zh' : 'en';
 
   return (
-    <html lang={language === 'zh' ? 'zh-HK' : 'en'} suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body className="font-sans antialiased">
+    <html lang={language === 'zh' ? 'zh-HK' : 'en'} suppressHydrationWarning>
+      <body
+        className={cn(
+          'min-h-screen bg-background font-sans antialiased',
+          inter.variable
+        )}
+      >
         {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-ZRHLCEY42Y"

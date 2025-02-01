@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { forwardRef, useState } from "react"
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu"
 import { Check, ChevronRight, Circle } from "lucide-react"
 
@@ -182,6 +183,48 @@ const DropdownMenuShortcut = ({
 }
 DropdownMenuShortcut.displayName = "DropdownMenuShortcut"
 
+interface SimpleDropdownMenuProps extends React.HTMLAttributes<HTMLDivElement> {
+  trigger: React.ReactNode
+}
+
+const SimpleDropdownMenu = forwardRef<HTMLDivElement, SimpleDropdownMenuProps>(
+  ({ children, trigger, ...props }, ref) => {
+    return (
+      <div ref={ref} {...props}>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            {trigger}
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            {children}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+    )
+  }
+)
+
+SimpleDropdownMenu.displayName = "SimpleDropdownMenu"
+
+interface SimpleDropdownMenuItemProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+const SimpleDropdownMenuItem = forwardRef<HTMLDivElement, SimpleDropdownMenuItemProps>(
+  ({ className = '', ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          'block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900',
+          className
+        )}
+        {...props}
+      />
+    )
+  }
+)
+
+SimpleDropdownMenuItem.displayName = 'SimpleDropdownMenuItem'
+
 export {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -198,4 +241,6 @@ export {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuRadioGroup,
+  SimpleDropdownMenu,
+  SimpleDropdownMenuItem,
 }
