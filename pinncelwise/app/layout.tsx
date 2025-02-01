@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { LayoutWrapper } from "@/components/components-layout-wrapper";
 import { defaultMetadata } from "@/lib/metadata";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -84,6 +85,18 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-6G7HY41FXB"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-6G7HY41FXB');
+          `}
+        </Script>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
