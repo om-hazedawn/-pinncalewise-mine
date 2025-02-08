@@ -33,6 +33,7 @@ export default function RootLayout({
             <ContactBar />
             <DynamicNavbar />
             <main className="flex-grow">{children}</main>
+            
             <DynamicFooter />
           </div>
         </LanguageProvider>
