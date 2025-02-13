@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { LanguageSwitcher } from "./language-switcher"
 import { useLanguage } from "../context/language-context"
+import MinimalLogo from "./MinimalLogo"
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -20,6 +21,7 @@ export function Navbar() {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-20">
           <Link href="/" className="flex items-center shrink-0">
+            <MinimalLogo width={40} height={32} className="mr-2" />
             <span className="font-bold text-xl">PinnacleWise</span>
           </Link>
 

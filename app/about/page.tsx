@@ -4,6 +4,7 @@ import { Award, Users, Clock, Building } from "lucide-react"
 import { PageHeader } from "../components/page-header"
 import { AnimatedCard } from "../components/animated-card"
 import { SectionWrapper } from "../components/section-wrapper"
+import { AnimatedCounter } from "../components/animated-counter"
 
 export default function AboutPage() {
   return (
@@ -14,7 +15,7 @@ export default function AboutPage() {
         <SectionWrapper>
           <div className="prose max-w-none mb-12">
             <p className="text-lg text-gray-600 mb-6">
-              毅思秘書有限公司成立於香港，專門提供全面的公司服務解決方案。我們的專業團隊擁有豐富的經驗，致力於為客戶提供高質素的服務。
+              慧思秘書有限公司成立於香港，專門提供全面的公司服務解決方案。我們的專業團隊擁有豐富的經驗，致力於為客戶提供高質素的服務。
             </p>
 
             <p className="text-lg text-gray-600 mb-6">
@@ -28,7 +29,9 @@ export default function AboutPage() {
             <AnimatedCard delay={0.1}>
               <CardContent className="p-6 text-center">
                 <Award className="w-12 h-12 text-primary mx-auto mb-4" />
-                <h3 className="text-xl font-semibold mb-2">10+ 年經驗</h3>
+                <h3 className="text-xl font-semibold mb-2">
+                  <AnimatedCounter end={10} suffix="+" /> 年經驗
+                </h3>
                 <p className="text-gray-600">專業服務經驗</p>
               </CardContent>
             </AnimatedCard>
@@ -36,7 +39,9 @@ export default function AboutPage() {
             <AnimatedCard delay={0.2}>
               <CardContent className="p-6 text-center">
                 <Users className="w-12 h-12 text-primary mx-auto mb-4" />
-                <h3 className="text-xl font-semibold mb-2">1000+</h3>
+                <h3 className="text-xl font-semibold mb-2">
+                  <AnimatedCounter end={1000} suffix="+" />
+                </h3>
                 <p className="text-gray-600">滿意客戶</p>
               </CardContent>
             </AnimatedCard>
@@ -44,7 +49,9 @@ export default function AboutPage() {
             <AnimatedCard delay={0.3}>
               <CardContent className="p-6 text-center">
                 <Clock className="w-12 h-12 text-primary mx-auto mb-4" />
-                <h3 className="text-xl font-semibold mb-2">24/7</h3>
+                <h3 className="text-xl font-semibold mb-2">
+                  <AnimatedCounter end={24} suffix="/7" />
+                </h3>
                 <p className="text-gray-600">客戶支援</p>
               </CardContent>
             </AnimatedCard>
@@ -95,4 +102,3 @@ export default function AboutPage() {
     </div>
   )
 }
-

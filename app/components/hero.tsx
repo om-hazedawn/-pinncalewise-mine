@@ -6,6 +6,7 @@ import { ElegantShape } from "./elegant-shape"
 import { Button } from "@/components/ui/button"
 import { StaticDiv } from "./static-motion"
 import { useLanguage } from "../context/language-context"
+import { openWhatsApp } from "@/app/utils/whatsapp"
 
 const pacifico = Pacifico({
   subsets: ["latin"],
@@ -24,7 +25,7 @@ const content = {
     buttonSecondary: "Learn More",
   },
   zh: {
-    subtitle: "毅思秘書",
+    subtitle: "慧思秘書",
     titleLine1: "專業",
     titleLine2: "企業服務",
     description: "您值得信賴的企業服務夥伴。我們助您企業成長、創新和成功。",
@@ -143,10 +144,19 @@ export function Hero() {
             animate="visible"
             className="flex justify-center gap-4"
           >
-            <Button size="lg" className="bg-white text-black hover:bg-white/90">
+            <Button 
+              size="lg" 
+              className="bg-white text-black hover:bg-white/90 font-medium px-8"
+              onClick={() => openWhatsApp(language === "en" ? "Company Secretary Service" : "公司秘書服務")}
+            >
               {currentContent.buttonPrimary}
             </Button>
-            <Button size="lg" variant="outline" className="text-white border-white/20 hover:bg-white/10">
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="text-white border-white bg-black hover:bg-black/80 hover:text-white font-medium px-8"
+              onClick={() => openWhatsApp(language === "en" ? "Company Secretary Service" : "公司秘書服務")}
+            >
               {currentContent.buttonSecondary}
             </Button>
           </StaticDiv>
@@ -157,4 +167,3 @@ export function Hero() {
     </div>
   )
 }
-

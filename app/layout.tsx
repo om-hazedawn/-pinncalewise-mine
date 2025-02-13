@@ -4,6 +4,7 @@ import { LanguageProvider } from "./context/language-context"
 import "./globals.css"
 import type React from "react"
 import dynamic from "next/dynamic"
+import { Toaster } from "@/components/ui/toaster"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -35,6 +36,7 @@ export default function RootLayout({
             <main className="flex-grow">{children}</main>
             
             <DynamicFooter />
+            <Toaster />
           </div>
         </LanguageProvider>
       </body>
