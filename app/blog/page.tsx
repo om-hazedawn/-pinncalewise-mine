@@ -31,7 +31,7 @@ const blogPosts = [
 export default function BlogPage() {
   return (
     <div className="container mx-auto px-4 py-12">
-      <h1 className="text-4xl font-bold mb-8">毅思博客</h1>
+      <h1 className="text-4xl font-bold mb-8">慧思博客</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {blogPosts.map((post) => (

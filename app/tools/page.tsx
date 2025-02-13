@@ -3,27 +3,32 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Calculator, FileText, Search, Settings } from "lucide-react"
 import { PageHeader } from "../components/page-header"
 import { AnimatedBackground } from "../components/animated-background"
+import Link from "next/link"
 
 const tools = [
   {
     title: "利得稅計算器",
     description: "快速計算您的應納稅額",
     icon: Calculator,
+    href: "/tools/tax-calculator"
   },
   {
     title: "文件範本下載",
     description: "常用商業文件範本",
     icon: FileText,
+    href: "/tools/document-templates"
   },
   {
     title: "公司名稱查冊",
     description: "查詢公司註冊狀態",
     icon: Search,
+    href: "/tools/company-search"
   },
   {
     title: "商業登記證查詢",
     description: "驗證商業登記證",
     icon: Settings,
+    href: "/tools/business-registration"
   },
 ]
 
@@ -46,9 +51,11 @@ export default function ToolsPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 mb-4">{tool.description}</p>
-                <Button className="w-full bg-gradient-to-r from-indigo-500 to-rose-500 text-white hover:from-indigo-600 hover:to-rose-600">
-                  使用工具
-                </Button>
+                <Link href={tool.href}>
+                  <Button className="w-full bg-gradient-to-r from-indigo-500 to-rose-500 text-white hover:from-indigo-600 hover:to-rose-600">
+                    使用工具
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
           ))}
@@ -62,4 +69,3 @@ export default function ToolsPage() {
     </AnimatedBackground>
   )
 }
-

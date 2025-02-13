@@ -109,7 +109,7 @@ export const navigationItems: Record<string, NavItem[]> = {
       href: "/tools",
     },
     {
-      title: "毅思博客",
+      title: "慧思博客",
       href: "/blog",
     },
     {
