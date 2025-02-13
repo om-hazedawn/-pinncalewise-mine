@@ -35,17 +35,58 @@ export function ChatBot() {
     const userMessage = { text: inputText, isBot: false }
     setMessages(prev => [...prev, userMessage])
     
-    // Find matching answer
-    const questionKey = Object.keys(FAQ[language]).find(key => 
-      inputText.toLowerCase().includes(key.toLowerCase()) ||
-      key.toLowerCase().includes(inputText.toLowerCase())
-    )
+    // Process the input text
+    const query = inputText.toLowerCase()
     
-    const answer = questionKey 
-      ? FAQ[language][questionKey as keyof typeof FAQ[typeof language]]
-      : language === 'en' 
-        ? "For specific inquiries, please contact our team at +852 1234 5678 or email info@pinnaclewise.com" 
-        : "如有具體查詢，請致電 +852 1234 5678 或電郵至 info@pinnaclewise.com"
+    // Find exact or partial FAQ matches
+    const faqMatches = Object.entries(FAQ[language]).filter(([question]) => 
+      question.toLowerCase().includes(query) || 
+      query.includes(question.toLowerCase())
+    )
+
+    let answer = ""
+
+    // Handle different types of queries
+    if (query.includes("hi") || query.includes("hello") || query.includes("你好")) {
+      answer = language === 'en' 
+        ? "Hello! How can I assist you today with our company secretary services?"
+        : "你好！我可以如何協助你了解我們的公司秘書服務？"
+    }
+    else if (query.includes("account")) {
+      if (query.includes("bank")) {
+        answer = FAQ[language]["Do you help with bank account opening?"]
+      } else {
+        answer = language === 'en'
+          ? "I can help you with various account-related services. Are you interested in:\n• Bank account opening\n• Account maintenance\n• Online account access\nPlease let me know which aspect you'd like to learn more about."
+          : "我可以協助你處理各種帳戶相關服務。你是否對以下感興趣：\n• 開設銀行帳戶\n• 帳戶維護\n• 網上帳戶存取\n請告訴我你想了解哪個方面。"
+      }
+    }
+    else if (query.includes("service")) {
+      answer = language === 'en'
+        ? "We offer a wide range of company secretary services. Here are our main service categories:\n" +
+          "• Company Formation\n• Corporate Compliance\n• Business Registration\n• Document Filing\n• Bank Account Assistance\n\n" +
+          "Which service would you like to know more about?"
+        : "我們提供廣泛的公司秘書服務。以下是我們的主要服務類別：\n" +
+          "• 公司成立\n• 企業合規\n• 商業登記\n• 文件存檔\n• 銀行開戶協助\n\n" +
+          "你想了解哪項服務的詳情？"
+    }
+    else if (query.includes("price") || query.includes("cost") || query.includes("fee") || 
+             query.includes("價格") || query.includes("收費")) {
+      answer = FAQ[language]["How much does it cost?"]
+    }
+    else if (query.includes("document") || query.includes("文件")) {
+      answer = FAQ[language]["What documents do I need?"]
+    }
+    else if (faqMatches.length > 0) {
+      // Use the best matching FAQ answer
+      answer = faqMatches[0][1]
+    }
+    else {
+      // Generate a contextual response for unknown queries
+      answer = language === 'en'
+        ? "I understand you're asking about " + query + ". While I don't have specific information about that, I'd be happy to help you understand our services better. Could you please provide more details about what you're looking for?\n\nAlternatively, you can reach our team at +852 1234 5678 or email info@pinnaclewise.com for personalized assistance."
+        : "我明白你在詢問關於" + query + "的問題。雖然我沒有具體相關資訊，但我很樂意幫助你更好地了解我們的服務。你能詳細說明你想了解的內容嗎？\n\n另外，你也可以致電 +852 1234 5678 或電郵至 info@pinnaclewise.com 獲取個人化協助。"
+    }
 
     // Add bot response with delay
     setTimeout(() => {
