@@ -1,14 +1,71 @@
 "use client"
 
+import { useState } from "react"
 import { Facebook, Instagram, Linkedin } from "lucide-react"
 import { footerItems } from "../config/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useLanguage } from "../context/language-context"
+import { useToast } from "@/components/ui/use-toast"
 
 export default function Footer() {
   const { language } = useLanguage()
+  const { toast } = useToast()
+  const [email, setEmail] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
   const currentFooterItems = footerItems[language]
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      toast({
+        title: language === "en" ? "Invalid email" : "無效的電郵地址",
+        description: language === "en" 
+          ? "Please enter a valid email address" 
+          : "請輸入有效的電郵地址",
+        variant: "destructive",
+      })
+      return
+    }
+
+    setIsLoading(true)
+
+    try {
+      const response = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error)
+      }
+
+      toast({
+        title: language === "en" ? "Success!" : "成功！",
+        description: language === "en"
+          ? "You have been subscribed to our newsletter"
+          : "您已成功訂閱我們的通訊",
+      })
+
+      setEmail("")
+    } catch (error) {
+      toast({
+        title: language === "en" ? "Error" : "錯誤",
+        description: language === "en"
+          ? "Failed to subscribe. Please try again later"
+          : "訂閱失敗。請稍後再試",
+        variant: "destructive",
+      })
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   return (
     <footer className="bg-gray-900 text-white">
@@ -55,14 +112,22 @@ export default function Footer() {
             <p className="mb-4">
               {language === "en" ? "Get the latest news and service updates" : "獲取最新消息和服務更新"}
             </p>
-            <div className="flex gap-2">
+            <form onSubmit={handleSubscribe} className="flex gap-2">
               <Input
                 type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder={language === "en" ? "Enter your email" : "輸入您的電郵"}
                 className="bg-gray-800 border-gray-700"
+                disabled={isLoading}
               />
-              <Button>{language === "en" ? "Subscribe" : "訂閱"}</Button>
-            </div>
+              <Button type="submit" disabled={isLoading}>
+                {isLoading 
+                  ? (language === "en" ? "Subscribing..." : "訂閱中...")
+                  : (language === "en" ? "Subscribe" : "訂閱")
+                }
+              </Button>
+            </form>
             <div className="flex space-x-4 mt-6">
               <a href="#" className="hover:text-gray-300">
                 <Facebook className="h-6 w-6" />
@@ -78,7 +143,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-gray-800 mt-12 pt-8 text-center">
-          <p>{language === "en" ? " 2025 PinnacleWise. All rights reserved." : " 2025 Pinnaclewise. "}</p>
+          <p>{language === "en" ? " 2025 PinnacleWise. All rights reserved." : "  2025 PinnacleWise. All rights reserved "}</p>
         </div>
       </div>
     </footer>

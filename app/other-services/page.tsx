@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 const services = [
   {
     title: "虛擬辦公室",
-    price: "$1000/年",
+    price: "$900/年",
     description: "提供專業的虛擬辦公室服務",
   },
   {
