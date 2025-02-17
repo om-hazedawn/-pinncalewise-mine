@@ -9,8 +9,8 @@ export function ContactBar() {
         <div className="flex items-center space-x-4">
           <div className="flex items-center">
             <Mail className="h-4 w-4 mr-2" />
-            <a href="mailto:info@pinnaclewise.com" className="hover:text-gray-300">
-              info@pinnaclewise.com
+            <a href="mailto:pinnwiselimited@gmail.com" className="hover:text-gray-300">
+              pinnwiselimited@gmail.com
             </a>
           </div>
           <div className="flex items-center">

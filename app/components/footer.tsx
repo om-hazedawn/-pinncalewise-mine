@@ -83,7 +83,7 @@ export default function Footer() {
                 <a href="tel:+85295311156">+852 9531 1156</a>
               </p>
               <p>
-                <a href="mailto:info@pinnaclewise.com">info@pinnaclewise.com</a>
+                <a href="mailto:pinnwiselimited@gmail.com">pinnwiselimited@gmail.com</a>
               </p>
             </address>
           </div>

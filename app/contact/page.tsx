@@ -37,7 +37,7 @@ export default function ContactPage() {
               <Mail className="h-6 w-6 text-primary shrink-0 mr-3" />
               <div>
                 <h3 className="font-semibold mb-1">電郵</h3>
-                <p>info@pinnaclewise.com</p>
+                <p>pinnwiselimited@gmail.com</p>
               </div>
             </div>
           </div>

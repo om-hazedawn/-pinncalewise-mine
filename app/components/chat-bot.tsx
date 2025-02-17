@@ -84,8 +84,8 @@ export function ChatBot() {
     else {
       // Generate a contextual response for unknown queries
       answer = language === 'en'
-        ? "I understand you're asking about " + query + ". While I don't have specific information about that, I'd be happy to help you understand our services better. Could you please provide more details about what you're looking for?\n\nAlternatively, you can reach our team at +852 1234 5678 or email info@pinnaclewise.com for personalized assistance."
-        : "我明白你在詢問關於" + query + "的問題。雖然我沒有具體相關資訊，但我很樂意幫助你更好地了解我們的服務。你能詳細說明你想了解的內容嗎？\n\n另外，你也可以致電 +852 1234 5678 或電郵至 info@pinnaclewise.com 獲取個人化協助。"
+        ? "I understand you're asking about " + query + ". While I don't have specific information about that, I'd be happy to help you understand our services better. Could you please provide more details about what you're looking for?\n\nAlternatively, you can reach our team at +852 1234 5678 or email pinnwiselimited@gmail.com for personalized assistance."
+        : "我明白你在詢問關於" + query + "的問題。雖然我沒有具體相關資訊，但我很樂意幫助你更好地了解我們的服務。你能詳細說明你想了解的內容嗎？\n\n另外，你也可以致電 +852 1234 5678 或電郵至 pinnwiselimited@gmail.com 獲取個人化協助。"
     }
 
     // Add bot response with delay

@@ -40,7 +40,7 @@ export default function PrivacyPage() {
           <h2 className="text-2xl font-semibold mb-4">聯絡我們</h2>
           <p className="mb-4">如果您對我們的私隱政策有任何疑問，請聯絡我們：</p>
           <div className="bg-gray-50 p-4 rounded-lg">
-            <p>電郵：info@pinnaclewise.com</p>
+            <p>電郵：pinnwiselimited@gmail.com</p>
             <p>電話：+852 9531 1156</p>
             <p>地址：香港九龍荔枝角永康街9號18樓1806室</p>
           </div>

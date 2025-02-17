@@ -84,7 +84,7 @@ export const websiteContent = {
       Company: PinnacleWise
       Address: Room 1806, 18/F, 9 Wing Hong Street, Lai Chi Kok, Kowloon, Hong Kong
       Phone: +852 9531 1156
-      Email: info@pinnaclewise.com
+      Email: pinnwiselimited@gmail.com
       Business Hours: Monday - Friday 10:00-19:00
     `,
   },
