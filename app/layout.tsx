@@ -5,6 +5,7 @@ import "./globals.css"
 import type React from "react"
 import dynamic from "next/dynamic"
 import { Toaster } from "@/components/ui/toaster"
+import GoogleAnalytics from "@/components/GoogleAnalytics"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -29,6 +30,7 @@ export default function RootLayout({
   return (
     <html lang="zh" suppressHydrationWarning>
       <body className={inter.className} suppressHydrationWarning>
+      <GoogleAnalytics />
         <LanguageProvider>
           <div className="min-h-screen flex flex-col">
             <ContactBar />
