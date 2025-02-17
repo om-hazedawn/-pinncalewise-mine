@@ -12,6 +12,27 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata = {
   title: "PinnacleWise - Professional Company Services",
   description: "Your trusted partner for comprehensive business solutions in Hong Kong",
+  keywords: "Hong Kong business services, company formation, accounting, tax services, corporate services",
+  authors: [{ name: "PinnacleWise" }],
+  openGraph: {
+    title: "PinnacleWise - Professional Company Services",
+    description: "Your trusted partner for comprehensive business solutions in Hong Kong",
+    url: "https://pinncalewise.com",
+    siteName: "PinnacleWise",
+    locale: "zh_HK",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+  },
+  alternates: {
+    canonical: "https://pinncalewise.com",
+  }
 }
 
 // Dynamically import components that use framer-motion with SSR disabled
