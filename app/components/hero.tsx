@@ -6,7 +6,7 @@ import { ElegantShape } from "./elegant-shape"
 import { Button } from "@/components/ui/button"
 import { StaticDiv } from "./static-motion"
 import { useLanguage } from "../context/language-context"
-import { openWhatsApp } from "@/app/utils/whatsapp"
+import { openContactForm } from "@/app/utils/contact"
 import { useEffect, useState } from "react"
 
 const pacifico = Pacifico({
@@ -179,7 +179,7 @@ export function Hero() {
             <Button 
               size="lg" 
               className="bg-gradient-to-r from-white to-white/90 text-black hover:from-white/95 hover:to-white/85 font-medium px-8 py-6 shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_25px_rgba(255,255,255,0.25)] transition-all duration-300"
-              onClick={() => openWhatsApp(language === "en" ? "Company Secretary Service" : "公司秘書服務")}
+              onClick={() => openContactForm(language === "en" ? "Company Secretary Service" : "公司秘書服務")}
             >
               {currentContent.buttonPrimary}
             </Button>
@@ -187,7 +187,7 @@ export function Hero() {
               size="lg" 
               variant="outline" 
               className="text-white border-white/30 bg-white/[0.02] backdrop-blur-sm hover:bg-white/[0.05] hover:text-white hover:border-white/50 font-medium px-8 py-6 transition-all duration-300"
-              onClick={() => openWhatsApp(language === "en" ? "Company Secretary Service" : "公司秘書服務")}
+              onClick={() => openContactForm()}
             >
               {currentContent.buttonSecondary}
             </Button>

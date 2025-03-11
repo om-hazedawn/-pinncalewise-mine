@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { openWhatsApp } from "@/app/utils/whatsapp"
+import { openContactForm } from "@/app/utils/contact"
 import { useLanguage } from "../context/language-context"
 
 const services = {
@@ -66,7 +66,7 @@ export function ProfessionalServices() {
                 </CardHeader>
                 <CardContent className="flex-grow flex flex-col">
                   <p className="text-gray-600 mb-6 flex-grow">{service.description}</p>
-                  <Button className="w-full mt-auto" onClick={() => openWhatsApp(service.title)}>
+                  <Button className="w-full mt-auto" onClick={() => openContactForm(service.title)}>
                     {language === "en" ? "Apply for Service" : "申請服務"}
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
@@ -79,4 +79,3 @@ export function ProfessionalServices() {
     </section>
   )
 }
-
