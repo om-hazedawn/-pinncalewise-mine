@@ -13,11 +13,11 @@ export function middleware(request: NextRequest) {
     'Content-Security-Policy',
     [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval'", // Consider restricting unsafe-inline/eval
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com",
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: https:",
       "font-src 'self'",
-      "connect-src 'self' https://api.openai.com",
+      "connect-src 'self' https://api.openai.com https://*.googleapis.com https://identitytoolkit.googleapis.com https://*.firebaseio.com https://*.firebase.googleapis.com https://*.firebaseapp.com https://www.google-analytics.com",
       "frame-ancestors 'none'",
       "form-action 'self'",
       "base-uri 'self'",

@@ -31,12 +31,9 @@ export default function CompanyDissolutionPage() {
             <div className="space-y-4">
               <div>
                 <h3 className="font-semibold mb-2">撤銷註冊</h3>
-                <p className="text-gray-600">適用於沒有營運、沒有負債的公司，處理時間約4-5個月。</p>
+                <p className="text-gray-600">適用於準備結束及停止營運的公司、沒有負債的公司，處理時間約4-5個月。</p>
               </div>
-              <div>
-                <h3 className="font-semibold mb-2">自動清盤</h3>
-                <p className="text-gray-600">適用於有資產的公司，股東自願結束公司。</p>
-              </div>
+           
             </div>
           </CardContent>
         </Card>

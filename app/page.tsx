@@ -12,7 +12,7 @@ export default function Page() {
       <Hero />
       <Stats />
       <ProfessionalServices />
-      <SecretaryServicesPricing />
+      {/* <SecretaryServicesPricing /> */}
       <SecretaryPlans />
     </>
   )
