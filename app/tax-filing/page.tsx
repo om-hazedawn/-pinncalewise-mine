@@ -1,8 +1,17 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { AlertCircle, FileText } from "lucide-react"
 
 export default function TaxFilingPage() {
+  const scrollToFooter = () => {
+    const footer = document.querySelector('footer')
+    if (footer) {
+      footer.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
   return (
     <div className="container mx-auto px-4 py-12">
       <h1 className="text-4xl font-bold mb-8">報稅服務</h1>
@@ -85,7 +94,7 @@ export default function TaxFilingPage() {
       </div>
 
       <div className="text-center mt-12">
-        <Button size="lg">立即諮詢</Button>
+        <Button size="lg" onClick={scrollToFooter}>立即諮詢</Button>
       </div>
     </div>
   )

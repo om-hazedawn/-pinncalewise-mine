@@ -1,8 +1,17 @@
+'use client'
+
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { CheckCircle } from "lucide-react"
 
 export default function AccountingPage() {
+  const scrollToFooter = () => {
+    const footer = document.querySelector('footer')
+    if (footer) {
+      footer.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
   return (
     <div className="container mx-auto px-4 py-12">
       <h1 className="text-4xl font-bold mb-8">會計理賬</h1>
@@ -13,7 +22,7 @@ export default function AccountingPage() {
           <p className="text-gray-600 mb-6">
             根據香港公司條例第622章，有限公司必須準備年度財務報表及保存相關會計記錄。我們提供全面的會計服務，確保您的業務符合法律要求。
           </p>
-          <Button size="lg">立即查詢</Button>
+          <Button size="lg" onClick={scrollToFooter}>立即查詢</Button>
         </div>
 
         <Card>
