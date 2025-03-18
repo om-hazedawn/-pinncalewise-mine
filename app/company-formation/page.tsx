@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useLanguage } from "../context/language-context"
 import { companyFormationTranslations } from "./lang"
+import Link from "next/link"
 
 export default function CompanyFormationPage() {
   const { language } = useLanguage()
@@ -26,7 +27,9 @@ export default function CompanyFormationPage() {
               <li>{t.registrationServices.benefits.oneStop}</li>
               <li>{t.registrationServices.benefits.reasonable}</li>
             </ul>
+            <Link href="/contact">
             <Button className="w-full">{t.registrationServices.applyButton}</Button>
+            </Link>
           </CardContent>
         </Card>
 

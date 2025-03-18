@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Check } from "lucide-react"
 
@@ -105,7 +106,9 @@ export default function PricingPage() {
 
       <div className="mt-12 text-center">
         <p className="text-gray-600 mb-6">需要更詳細的報價？請與我們聯繫，我們會為您提供最適合的方案。</p>
-        <Button size="lg">立即諮詢</Button>
+        <Link href="/contact">
+          <Button size="lg">立即諮詢</Button>
+        </Link>
       </div>
     </div>
   )
