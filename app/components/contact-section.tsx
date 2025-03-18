@@ -11,7 +11,7 @@ const content = {
     contactInfo: {
       address: "123 Business Avenue, Central District, Hong Kong",
       email: "info@pinnaclewise.com",
-      phone: "+852 1234 5678"
+      phone: "+852 9531 1156"
     }
   },
   zh: {
@@ -21,7 +21,7 @@ const content = {
     contactInfo: {
       address: "香港中環商業大道123號",
       email: "info@pinnaclewise.com",
-      phone: "+852 1234 5678"
+      phone: "+852 9531 1156"
     }
   }
 }
