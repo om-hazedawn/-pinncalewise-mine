@@ -132,7 +132,7 @@ export default function Footer() {
               <a href="#" className="hover:text-gray-300">
                 <Facebook className="h-6 w-6" />
               </a>
-              <a href="#" className="hover:text-gray-300">
+              <a href="https://www.instagram.com/pinnwiselimited/" className="hover:text-gray-300">
                 <Instagram className="h-6 w-6" />
               </a>
               <a href="#" className="hover:text-gray-300">
