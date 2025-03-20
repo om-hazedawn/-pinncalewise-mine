@@ -1,5 +1,6 @@
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import Link from "next/link";
 
 export default function CompanyDissolutionPage() {
   return (
@@ -19,7 +20,9 @@ export default function CompanyDissolutionPage() {
               <li>✓ 合理收費</li>
               <li>✓ 保密服務</li>
             </ul>
-            <Button className="w-full">了解更多</Button>
+            <Link href="/auth/login">
+              <Button className="w-full">了解更多</Button>
+            </Link>
           </CardContent>
         </Card>
 
@@ -33,7 +36,6 @@ export default function CompanyDissolutionPage() {
                 <h3 className="font-semibold mb-2">撤銷註冊</h3>
                 <p className="text-gray-600">適用於準備結束及停止營運的公司、沒有負債的公司，處理時間約4-5個月。</p>
               </div>
-           
             </div>
           </CardContent>
         </Card>
@@ -65,6 +67,5 @@ export default function CompanyDissolutionPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-
