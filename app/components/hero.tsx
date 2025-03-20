@@ -1,19 +1,20 @@
-"use client"
+"use client";
 
-import { Pacifico } from "next/font/google"
-import { cn } from "@/lib/utils"
-import { ElegantShape } from "./elegant-shape"
-import { Button } from "@/components/ui/button"
-import { StaticDiv } from "./static-motion"
-import { useLanguage } from "../context/language-context"
-import { openContactForm } from "@/app/utils/contact"
-import { useEffect, useState } from "react"
+import { Pacifico } from "next/font/google";
+import { cn } from "@/lib/utils";
+import { ElegantShape } from "./elegant-shape";
+import { Button } from "@/components/ui/button";
+import { StaticDiv } from "./static-motion";
+import { useLanguage } from "../context/language-context";
+import { openContactForm } from "@/app/utils/contact";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const pacifico = Pacifico({
   subsets: ["latin"],
   weight: ["400"],
   variable: "--font-pacifico",
-})
+});
 
 const content = {
   en: {
@@ -33,12 +34,13 @@ const content = {
     buttonPrimary: "立即開始",
     buttonSecondary: "了解更多",
   },
-}
+};
 
 export function Hero() {
-  const { language } = useLanguage()
-  const currentContent = content[language]
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const { language } = useLanguage();
+  const router = useRouter();
+  const currentContent = content[language];
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   // Track mouse movement for parallax effect
   useEffect(() => {
@@ -46,12 +48,12 @@ export function Hero() {
       setMousePosition({
         x: e.clientX / window.innerWidth,
         y: e.clientY / window.innerHeight,
-      })
-    }
-    
-    window.addEventListener("mousemove", handleMouseMove)
-    return () => window.removeEventListener("mousemove", handleMouseMove)
-  }, [])
+      });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
   const fadeUpVariants = {
     hidden: { opacity: 0, y: 30 },
@@ -64,16 +66,18 @@ export function Hero() {
         ease: [0.25, 0.4, 0.25, 1],
       },
     }),
-  }
+  };
 
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#030303]">
       {/* Enhanced background gradient with animation */}
-      <div 
-        className="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.08] via-transparent to-rose-500/[0.08] blur-3xl animate-pulse" 
+      <div
+        className="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.08] via-transparent to-rose-500/[0.08] blur-3xl animate-pulse"
         style={{
-          transform: `translate(${(mousePosition.x - 0.5) * -20}px, ${(mousePosition.y - 0.5) * -20}px)`,
-          transition: 'transform 0.3s ease-out'
+          transform: `translate(${(mousePosition.x - 0.5) * -20}px, ${
+            (mousePosition.y - 0.5) * -20
+          }px)`,
+          transition: "transform 0.3s ease-out",
         }}
       />
 
@@ -141,7 +145,12 @@ export function Hero() {
             </span>
           </StaticDiv>
 
-          <StaticDiv custom={1} variants={fadeUpVariants} initial="hidden" animate="visible">
+          <StaticDiv
+            custom={1}
+            variants={fadeUpVariants}
+            initial="hidden"
+            animate="visible"
+          >
             <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold mb-6 md:mb-8 tracking-tight relative">
               <span className="bg-clip-text text-transparent bg-gradient-to-b from-white to-white/80 drop-shadow-[0_5px_15px_rgba(255,255,255,0.1)]">
                 {currentContent.titleLine1}
@@ -150,7 +159,7 @@ export function Hero() {
               <span
                 className={cn(
                   "bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-white/95 to-rose-300 drop-shadow-[0_5px_15px_rgba(255,255,255,0.15)]",
-                  pacifico.className,
+                  pacifico.className
                 )}
               >
                 {currentContent.titleLine2}
@@ -161,7 +170,12 @@ export function Hero() {
             </h1>
           </StaticDiv>
 
-          <StaticDiv custom={2} variants={fadeUpVariants} initial="hidden" animate="visible">
+          <StaticDiv
+            custom={2}
+            variants={fadeUpVariants}
+            initial="hidden"
+            animate="visible"
+          >
             <p className="text-base sm:text-lg md:text-xl text-white/50 mb-10 leading-relaxed font-light tracking-wide max-w-xl mx-auto px-4 relative">
               {currentContent.description}
               <span className="absolute -left-4 top-0 h-full w-1 bg-gradient-to-b from-transparent via-white/10 to-transparent rounded-full"></span>
@@ -176,18 +190,24 @@ export function Hero() {
             animate="visible"
             className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6"
           >
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               className="bg-gradient-to-r from-white to-white/90 text-black hover:from-white/95 hover:to-white/85 font-medium px-8 py-6 shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_25px_rgba(255,255,255,0.25)] transition-all duration-300"
-              onClick={() => openContactForm(language === "en" ? "Company Secretary Service" : "公司秘書服務")}
+              onClick={() =>
+                openContactForm(
+                  language === "en"
+                    ? "Company Secretary Service"
+                    : "公司秘書服務"
+                )
+              }
             >
               {currentContent.buttonPrimary}
             </Button>
-            <Button 
-              size="lg" 
-              variant="outline" 
-              className="text-white border-white/30 bg-white/[0.02] backdrop-blur-sm hover:bg-white/[0.05] hover:text-white hover:border-white/50 font-medium px-8 py-6 transition-all duration-300"
-              onClick={() => openContactForm()}
+            <Button
+              size="lg"
+              variant="outline"
+              className="text-white border-white/30 bg-white/[0.02] backdrop-blur-sm hover:bg-white/[0.05] hover:text-white hover:border-white/50 font-medium px-8 py-6 transition-all duration-300 hover:animate-blink"
+              onClick={() => router.push("/about")}
             >
               {currentContent.buttonSecondary}
             </Button>
@@ -197,9 +217,9 @@ export function Hero() {
 
       {/* Enhanced gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-[#030303] via-transparent to-[#030303]/80 pointer-events-none" />
-      
+
       {/* Light glow effect */}
       <div className="absolute w-96 h-96 bg-indigo-500/10 rounded-full blur-[100px] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-pulse-slow"></div>
     </div>
-  )
+  );
 }
