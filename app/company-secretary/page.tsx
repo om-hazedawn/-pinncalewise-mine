@@ -1,13 +1,14 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
+import {Card,CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
 import { Check } from "lucide-react"
 import { AnimatedBackground } from "../components/animated-background"
 import { FancyCard } from "../components/fancy-card"
 import { MotionDiv, MotionList, MotionListItem } from "../components/motion-wrapper"
 import { useLanguage } from "../context/language-context"
-import { openWhatsApp } from "@/app/utils/whatsapp"
+import { openWhatsApp } from "@/lib/utils/whatsapp"
+
 
 const plans = {
   en: [
@@ -184,7 +185,9 @@ export default function CompanySecretaryPage() {
 
   return (
     <div className="relative min-h-screen bg-background">
-      <AnimatedBackground />
+      <AnimatedBackground>
+        <div></div>
+      </AnimatedBackground>
       <div className="container relative z-10 mx-auto px-4 py-16">
         <div className="text-center">
           <h1 className="mb-4 text-4xl font-bold">
@@ -199,74 +202,66 @@ export default function CompanySecretaryPage() {
 
         <div className="grid gap-8 md:grid-cols-3">
           {currentPlans.map((plan, index) => (
-            <MotionDiv
-              key={plan.name}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <FancyCard className={plan.recommended ? "border-primary" : ""}>
-                {plan.recommended && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-primary px-3 py-1 text-sm font-medium text-primary-foreground">
-                    {language === "en" ? "Recommended" : "推薦"}
+            <Card key={plan.name} className={plan.recommended ? "border-primary relative" : "relative"}>
+              {plan.recommended && (
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-primary px-3 py-1 text-sm font-medium text-primary-foreground">
+                  {language === "en" ? "Recommended" : "推薦"}
+                </div>
+              )}
+              <CardHeader>
+                <CardTitle>
+                  <div className="text-2xl font-bold">{plan.name}</div>
+                  <div className="mt-4 text-4xl font-bold">
+                    {plan.price}
+                    <span className="text-lg font-normal text-muted-foreground">
+                      {plan.period}
+                    </span>
+                  </div>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">{plan.description}</p>
+                <p className="mt-2 font-medium">{plan.totalPrice}</p>
+                <ul className="mt-6 space-y-3">
+                  {plan.features.map((feature) => (
+                    <li key={feature} className="flex items-start gap-3">
+                      <Check className="h-5 w-5 shrink-0 text-primary" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                {plan.extraService && (
+                  <div className="mt-6 rounded-lg bg-muted p-4 text-sm">
+                    {plan.extraService}
+                    <ul className="mt-4 space-y-2">
+                      {plan.additionalFeatures.map((feature) => (
+                        <li key={feature} className="flex items-start gap-2">
+                          <Check className="h-4 w-4 shrink-0 text-primary" />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 )}
-                <CardHeader>
-                  <CardTitle>
-                    <div className="text-2xl font-bold">{plan.name}</div>
-                    <div className="mt-4 text-4xl font-bold">
-                      {plan.price}
-                      <span className="text-lg font-normal text-muted-foreground">
-                        {plan.period}
-                      </span>
-                    </div>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">{plan.description}</p>
-                  <p className="mt-2 font-medium">{plan.totalPrice}</p>
-                  <MotionList className="mt-6 space-y-3">
-                    {plan.features.map((feature) => (
-                      <MotionListItem key={feature} className="flex items-start gap-3">
-                        <Check className="h-5 w-5 shrink-0 text-primary" />
-                        <span>{feature}</span>
-                      </MotionListItem>
-                    ))}
-                  </MotionList>
-                  {plan.extraService && (
-                    <div className="mt-6 rounded-lg bg-muted p-4 text-sm">
-                      {plan.extraService}
-                      <MotionList className="mt-4 space-y-2">
-                        {plan.additionalFeatures.map((feature) => (
-                          <MotionListItem key={feature} className="flex items-start gap-2">
-                            <Check className="h-4 w-4 shrink-0 text-primary" />
-                            <span>{feature}</span>
-                          </MotionListItem>
-                        ))}
-                      </MotionList>
-                    </div>
-                  )}
-                </CardContent>
-                <CardFooter>
-                  <Button 
-                    className="w-full" 
-                    size="lg"
-                    onClick={() =>
-                      openWhatsApp({
-                        name: plan.name,
-                        price: plan.price,
-                        period: plan.period,
-                        totalPrice: plan.totalPrice,
-                        features: plan.features,
-                        language,
-                      })
-                    }
-                  >
-                    {language === "en" ? "Get Started" : "立即開始"}
-                  </Button>
-                </CardFooter>
-              </FancyCard>
-            </MotionDiv>
+              </CardContent>
+              <CardFooter>
+                <Button
+                  className="w-full"
+                  onClick={() =>
+                    openWhatsApp({
+                      name: plan.name,
+                      price: plan.price,
+                      period: plan.period,
+                      totalPrice: plan.totalPrice,
+                      features: plan.features,
+                      language,
+                    })
+                  }
+                >
+                  {language === "en" ? "Get Started" : "立即開始"}
+                </Button>
+              </CardFooter>
+            </Card>
           ))}
         </div>
       </div>

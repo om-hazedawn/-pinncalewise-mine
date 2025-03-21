@@ -1,6 +1,8 @@
+"use client"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { CheckCircle, FileCheck } from "lucide-react"
+import { openWhatsApp } from "@/lib/utils/whatsapp"
 
 export default function AuditPage() {
   return (
@@ -13,7 +15,7 @@ export default function AuditPage() {
           <p className="text-gray-600 mb-6">
             根據香港公司條例，所有在香港註冊的有限公司必須每年進行審計。我們提供專業的核數服務，確保您的公司符合法律要求。
           </p>
-          <Button size="lg">了解更多</Button>
+          <Button size="lg" onClick={() => openWhatsApp("我想了解更多關於核數服務")}>了解更多</Button>
         </div>
 
         <Card>

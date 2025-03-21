@@ -140,7 +140,7 @@ export function Hero() {
             animate="visible"
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-white/[0.05] to-white/[0.02] backdrop-blur-sm border border-white/[0.1] mb-8 md:mb-12 shadow-[0_0_15px_rgba(255,255,255,0.05)] hover:shadow-[0_0_20px_rgba(255,255,255,0.08)] transition-all duration-300"
           >
-            <span className="text-base text-transparent bg-clip-text bg-gradient-to-r from-white/90 via-white to-white/90 font-medium tracking-wider">
+           <span className="text-2xl md:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-white/90 via-white to-white/90 font-semibold tracking-wider">
               {currentContent.subtitle}
             </span>
           </StaticDiv>
