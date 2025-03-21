@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { AlertCircle, FileText } from "lucide-react"
+import { openWhatsApp } from "@/lib/utils/whatsapp"
 
 export default function TaxFilingPage() {
   const scrollToFooter = () => {
@@ -94,7 +95,7 @@ export default function TaxFilingPage() {
       </div>
 
       <div className="text-center mt-12">
-        <Button size="lg" onClick={scrollToFooter}>立即諮詢</Button>
+      <Button size="lg" onClick={() => openWhatsApp("稅務服務")}>立即諮詢</Button>
       </div>
     </div>
   )
