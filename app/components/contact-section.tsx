@@ -9,7 +9,7 @@ const content = {
     subtitle: "Have questions? We're here to help.",
     description: "Contact our professional team for any inquiries about our company services.",
     contactInfo: {
-      address: "123 Business Avenue, Central District, Hong Kong",
+      address: "Room 3, 17/F, Trendy Centre, 682 Castle Peak Road, Lai Chi Kok, Kowloom",
       email: "info@pinnaclewise.com",
       phone: "+852 9531 1156"
     }
@@ -19,7 +19,7 @@ const content = {
     subtitle: "有問題嗎？我們在此幫助您。",
     description: "如有任何關於我們公司服務的查詢，請聯繫我們的專業團隊。",
     contactInfo: {
-      address: "香港中環商業大道123號",
+      address: "荔枝角青山道682號潮流工貿中心17樓3室",
       email: "info@pinnaclewise.com",
       phone: "+852 9531 1156"
     }
