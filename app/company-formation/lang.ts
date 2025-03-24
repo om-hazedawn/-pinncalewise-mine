@@ -99,7 +99,7 @@ export const companyFormationTranslations: Record<Language, CompanyFormationTran
         companyName: "3. 公司名稱（中英文）",
         registrationAddress: "4. 公司註冊地址",
         businessNature: "5. 業務性質",
-        secretaryId: "6. 公司秘書身份證副本",
+        secretaryId: "6. 公司秘書身份證副本(必須有香港常用地址) , 可使用本司的[公司秘書服務]",
       },
     },
     registrationProcess: {
@@ -175,7 +175,7 @@ export const companyFormationTranslations: Record<Language, CompanyFormationTran
         companyName: "3. Company name (Chinese and English)",
         registrationAddress: "4. Company registration address",
         businessNature: "5. Business nature",
-        secretaryId: "6. Copy of company secretary's ID card",
+        secretaryId: "6. Copy of company secretary's ID card ( must have a common address in Hong Kong ), you can use the [ Company Secret Service ]",
       },
     },
     registrationProcess: {

@@ -6,6 +6,23 @@ import { useLanguage } from "../context/language-context"
 import { companyFormationTranslations } from "./lang"
 import Link from "next/link"
 
+const TextWithLink = ({ text }: { text: string }) => {
+  const parts = text.split(/(\[公司秘書服務\]|\[ Company Secret Service \])/);
+  return (
+    <>
+      {parts.map((part, index) =>
+        part === "[公司秘書服務]" || part === "[ Company Secret Service ]" ? (
+          <Link key={index} href="/company-secretary" className="text-primary hover:underline">
+            {part}
+          </Link>
+        ) : (
+          part
+        )
+      )}
+    </>
+  );
+};
+
 export default function CompanyFormationPage() {
   const { language } = useLanguage()
   const t = companyFormationTranslations[language as keyof typeof companyFormationTranslations]
@@ -44,7 +61,7 @@ export default function CompanyFormationPage() {
               <li>{t.requiredDocuments.list.companyName}</li>
               <li>{t.requiredDocuments.list.registrationAddress}</li>
               <li>{t.requiredDocuments.list.businessNature}</li>
-              <li>{t.requiredDocuments.list.secretaryId}</li>
+              <li><TextWithLink text={t.requiredDocuments.list.secretaryId} /></li>
             </ul>
           </CardContent>
         </Card>
