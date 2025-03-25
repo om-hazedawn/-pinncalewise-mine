@@ -56,10 +56,6 @@ export const navigationItems: Record<string, NavItem[]> = {
       title: "Contact",
       href: "/contact",
     },
-    {
-      title: "Chat Assistant",
-      href: "/chat",
-    },
   ],
   zh: [
     {
@@ -115,10 +111,6 @@ export const navigationItems: Record<string, NavItem[]> = {
     {
       title: "聯絡我們",
       href: "/contact",
-    },
-    {
-      title: "聊天助手",
-      href: "/chat",
     },
   ],
 }
