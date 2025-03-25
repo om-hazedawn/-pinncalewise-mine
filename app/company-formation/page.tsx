@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useLanguage } from "../context/language-context"
 import { companyFormationTranslations } from "./lang"
 import Link from "next/link"
-
+import { openWhatsApp } from "@/app/utils/whatsapp"
 const TextWithLink = ({ text }: { text: string }) => {
   const parts = text.split(/(\[公司秘書服務\]|\[ Company Secret Service \])/);
   return (
@@ -120,7 +120,14 @@ export default function CompanyFormationPage() {
                 <li>{t.secretaryServices.ourServices.list.records}</li>
                 <li>{t.secretaryServices.ourServices.list.advice}</li>
               </ul>
-              <Button className="w-full">{t.secretaryServices.ourServices.learnMoreButton}</Button>
+              <Button 
+              className="w-full"
+              onClick={() =>
+                openWhatsApp(
+                  language === "zh" ? "公司秘書服務查詢" : "Company Secretary Services Inquiry"
+                )
+              }
+                >{t.secretaryServices.ourServices.learnMoreButton}</Button>
             </CardContent>
           </Card>
         </div>

@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button"
 import { CardContent } from "@/components/ui/card"
 import { Award, Users, Clock, Building } from "lucide-react"
@@ -5,8 +7,10 @@ import { PageHeader } from "../components/page-header"
 import { AnimatedCard } from "../components/animated-card"
 import { SectionWrapper } from "../components/section-wrapper"
 import { AnimatedCounter } from "../components/animated-counter"
+import { useRouter } from "next/navigation";
 
 export default function AboutPage() {
+  const router = useRouter();
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="max-w-4xl mx-auto">
@@ -96,7 +100,7 @@ export default function AboutPage() {
         <SectionWrapper className="text-center">
           <h2 className="text-2xl font-bold mb-6">準備開始？</h2>
           <p className="text-gray-600 mb-6">聯絡我們，了解更多關於我們的服務</p>
-          <Button size="lg">立即諮詢</Button>
+          <Button size="lg" onClick={() => router.push("/contact")}>立即諮詢</Button>
         </SectionWrapper>
       </div>
     </div>
