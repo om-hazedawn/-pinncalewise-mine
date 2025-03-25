@@ -75,10 +75,7 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-bold mb-4">PinnacleWise</h3>
             <address className="not-italic">
-              <p>香港</p>
-              <p>九龍荔枝角</p>
-              <p>永康街9號</p>
-              <p>18樓1806室</p>
+            {language === "en" ? "Room 3, 17/F, Trendy Centre, 682 Castle Peak Road, Lai Chi Kok, Kowloom" : "荔枝角青山道682號潮流工貿中心17樓3室"}
               <p className="mt-4">
                 <a href="tel:+85295311156">+852 9531 1156</a>
               </p>
@@ -129,7 +126,7 @@ export default function Footer() {
               </Button>
             </form>
             <div className="flex space-x-4 mt-6">
-              <a href="#" className="hover:text-gray-300">
+              <a href="https://www.facebook.com/profile.php?id=61574436118670" className="hover:text-gray-300">
                 <Facebook className="h-6 w-6" />
               </a>
               <a href="https://www.instagram.com/pinnwiselimited/" className="hover:text-gray-300">
