@@ -31,8 +31,8 @@ export function Navbar() {
             href="/"
             className="flex items-center flex-shrink-0 mr-8 h-[52px]"
           >
-            <MinimalLogo width={85} height={68} className="mr-3" />
-            <span className="font-bold text-2xl whitespace-nowrap">
+            <MinimalLogo width={85} height={68} className="hidden lg:block mr-3" />
+            <span className="font-bold text-xl lg:text-2xl whitespace-nowrap">
               PinnacleWise
             </span>
           </Link>
@@ -119,7 +119,7 @@ export function Navbar() {
             exit={{ opacity: 0, height: 0 }}
             className="lg:hidden"
           >
-            <div className="px-4 pt-2 pb-4 space-y-2 border-t">
+            <div className="px-4 pt-2 pb-4 space-y-3 border-t bg-white">
               {/* Navigation Items */}
               {currentNavItems.map((item) =>
                 item.items ? (
