@@ -1,15 +1,18 @@
-"use client"
+"use client";
 
-import { Mail, Phone } from "lucide-react"
+import { Mail, Phone } from "lucide-react";
 
 export function ContactBar() {
   return (
-    <div className="bg-black/90 text-white py-2 px-4">
-      <div className="container mx-auto flex flex-wrap justify-between items-center text-sm">
-        <div className="flex items-center space-x-4">
+    <div className="bg-black/90 text-white py-2 px-2 sm:px-4">
+      <div className="container mx-auto flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-0 text-xs sm:text-sm">
+        <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
           <div className="flex items-center">
             <Mail className="h-4 w-4 mr-2" />
-            <a href="mailto:pinnwiselimited@gmail.com" className="hover:text-gray-300">
+            <a
+              href="mailto:pinnwiselimited@gmail.com"
+              className="hover:text-gray-300 break-all sm:break-normal"
+            >
               pinnwiselimited@gmail.com
             </a>
           </div>
@@ -20,9 +23,10 @@ export function ContactBar() {
             </a>
           </div>
         </div>
-        <div className="text-gray-400">Open Mon - Fri 10:00-19:00</div>
+        <div className="text-gray-400 text-center sm:text-left">
+          Open Mon - Fri 10:00-19:00
+        </div>
       </div>
     </div>
-  )
+  );
 }
-

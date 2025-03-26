@@ -25,11 +25,11 @@ export function Navbar() {
   return (
     <nav className="bg-white border-b w-full">
       <div className="container mx-auto px-4">
-        <div className="flex flex-wrap justify-between items-center min-h-[5rem] py-2 gap-y-2">
+        <div className="flex justify-between items-center min-h-[5rem] py-2">
           {/* Logo Section - Larger size and no shrinking */}
           <Link
             href="/"
-            className="flex items-center flex-shrink-0 mr-8 h-[52px]"
+            className="flex items-center flex-shrink-0 mr-4 h-[52px] max-w-[200px]"
           >
             <MinimalLogo width={85} height={68} className="hidden lg:block mr-3" />
             <span className="font-bold text-xl lg:text-2xl whitespace-nowrap">
@@ -92,7 +92,7 @@ export function Navbar() {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="lg:hidden flex items-center space-x-4">
+          <div className="lg:hidden flex items-center space-x-3 flex-shrink-0">
             <LanguageSwitcher />
             <Button
               variant="ghost"
