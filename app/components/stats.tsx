@@ -81,21 +81,22 @@ const stats: StatsData = {
   ],
 }
 
-// Animated counter component
+// Simplified Counter component with better performance
 const Counter = ({ value, unit, duration = 2 }: CounterProps) => {
   const [count, setCount] = useState(0)
   const ref = useRef<HTMLSpanElement>(null)
-  const inView = useInView(ref, { once: true, threshold: 0.3 })
+  const inView = useInView(ref, { once: true, amount: 0.3 })
   
   useEffect(() => {
     if (!inView) return
     
     let start = 0
     const end = Math.min(value, 999)
-    const incrementTime = Math.floor(duration * 1000 / end)
+    const step = Math.ceil(end / 20) // Reduce number of updates
+    const incrementTime = Math.floor((duration * 1000) / (end / step))
     
     const timer = setInterval(() => {
-      start += 1
+      start = Math.min(start + step, end)
       setCount(start)
       if (start >= end) clearInterval(timer)
     }, incrementTime)
@@ -111,7 +112,7 @@ export function Stats() {
   const currentStats = stats[language as keyof StatsData]
   const controls = useAnimation()
   const ref = useRef<HTMLElement>(null)
-  const inView = useInView(ref, { once: true, threshold: 0.2 })
+  const inView = useInView(ref, { once: true, amount: 0.2 })
   
   useEffect(() => {
     if (inView) {
@@ -120,36 +121,28 @@ export function Stats() {
   }, [controls, inView])
 
   return (
-    <section ref={ref} className="py-24 bg-gradient-to-b from-gray-50 to-white overflow-hidden relative">
-      {/* Add CSS keyframes for blob animations */}
+    <section ref={ref} className="py-12 md:py-24 bg-gradient-to-b from-gray-50 to-white overflow-hidden relative">
+      {/* Simplified blob animations with reduced complexity for mobile */}
       <style jsx>{`
-        @keyframes blob {
-          0% {
-            transform: translate(0px, 0px) scale(1);
+        @media (min-width: 768px) {
+          @keyframes blob {
+            0%, 100% { transform: translate(0px, 0px) scale(1); }
+            50% { transform: translate(20px, -20px) scale(1.1); }
           }
-          33% {
-            transform: translate(30px, -50px) scale(1.1);
+          .animate-blob {
+            animation: blob 10s infinite ease-in-out;
           }
-          66% {
-            transform: translate(-20px, 20px) scale(0.9);
+          .animation-delay-2000 {
+            animation-delay: 2s;
           }
-          100% {
-            transform: translate(0px, 0px) scale(1);
+          .animation-delay-4000 {
+            animation-delay: 4s;
           }
-        }
-        .animate-blob {
-          animation: blob 7s infinite;
-        }
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-        .animation-delay-4000 {
-          animation-delay: 4s;
         }
       `}</style>
       
-      {/* Background elements for visual interest */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+      {/* Background elements only shown on desktop */}
+      <div className="hidden md:block absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute -top-24 -left-24 w-64 h-64 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
         <div className="absolute top-40 right-20 w-72 h-72 bg-green-100 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
         <div className="absolute bottom-10 left-1/3 w-80 h-80 bg-amber-100 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
@@ -161,43 +154,40 @@ export function Stats() {
           animate={controls}
           variants={{
             hidden: { opacity: 0 },
-            visible: { opacity: 1, transition: { staggerChildren: 0.3 } }
+            visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
           }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-10"
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10"
         >
           {currentStats.map((stat, index) => (
             <motion.div
               key={stat.title}
               variants={{
-                hidden: { y: 50, opacity: 0 },
+                hidden: { y: 20, opacity: 0 },
                 visible: { 
                   y: 0, 
                   opacity: 1,
                   transition: { 
-                    duration: 0.8, 
-                    ease: [0.4, 0, 0.2, 1]
+                    duration: 0.5,
+                    ease: "easeOut"
                   } 
                 }
               }}
-              className="relative group"
+              className="relative"
             >
-              <div className="absolute inset-0 bg-gradient-to-r opacity-0 group-hover:opacity-100 rounded-xl transition-opacity duration-500 -z-10"
-                   style={{ backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.03), transparent)` }} />
-                   
-              <div className="flex flex-col h-full bg-white rounded-xl shadow-xl p-8 transform transition-all duration-500 group-hover:-translate-y-2 group-hover:shadow-2xl">
-                <div className={`p-3 rounded-full bg-gradient-to-r ${stat.color} w-16 h-16 flex items-center justify-center mb-6 shadow-md transform transition-transform group-hover:scale-110 duration-500`}>
-                  <stat.icon className="w-8 h-8 text-white" />
+              <div className="flex flex-col h-full bg-white rounded-xl shadow-lg p-6 md:p-8">
+                <div className={`p-3 rounded-full bg-gradient-to-r ${stat.color} w-14 h-14 md:w-16 md:h-16 flex items-center justify-center mb-4 md:mb-6 shadow-md`}>
+                  <stat.icon className="w-7 h-7 md:w-8 md:h-8 text-white" />
                 </div>
                 
-                <h3 className={`text-4xl font-bold mb-3 bg-clip-text text-transparent bg-gradient-to-r ${stat.color}`}>
+                <h3 className={`text-3xl md:text-4xl font-bold mb-2 md:mb-3 bg-clip-text text-transparent bg-gradient-to-r ${stat.color}`}>
                   <Counter value={stat.value} unit={stat.unit} />
                 </h3>
                 
-                <p className="text-lg font-medium mb-2">{stat.title}</p>
-                <p className="text-gray-600 mt-auto">{stat.description}</p>
+                <p className="text-base md:text-lg font-medium mb-2">{stat.title}</p>
+                <p className="text-gray-600 text-sm md:text-base mt-auto">{stat.description}</p>
                 
-                {/* Animated line */}
-                <div className={`w-0 h-1 bg-gradient-to-r ${stat.color} mt-6 group-hover:w-full transition-all duration-700 ease-out rounded-full`} />
+                {/* Simpler line animation */}
+                <div className={`h-1 bg-gradient-to-r ${stat.color} mt-4 md:mt-6 w-1/3 rounded-full`} />
               </div>
             </motion.div>
           ))}
