@@ -6,20 +6,19 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, MapPin, Phone } from "lucide-react";
-import { formService } from "@/lib/formService";
 import { toast } from "@/components/ui/use-toast";
-import { auth } from "@/lib/firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { submitContactFormToSupabase } from "@/lib/supabase/contactService";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
-    Name: "",
-    Email: "",
-    Phone: "",
-    Message: ""
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+    service: "", // Empty string instead of null
+    company: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [user] = useAuthState(auth);
 
   // Handle form input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -36,17 +35,16 @@ export default function ContactPage() {
     setIsSubmitting(true);
 
     try {
-      // Submit form data to Firebase via our form service
-      const response = await formService.SubmitForm({
-        Name: formData.Name,
-        Email: formData.Email,
-        Phone: formData.Phone,
-        Message: formData.Message,
-        FormType: "contact",
-        UserId: user?.uid
+      const result = await submitContactFormToSupabase({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone || undefined,
+        company: undefined,
+        message: formData.message,
+        service: formData.service
       });
 
-      if (response.Success) {
+      if (result.success) {
         // Show success toast notification
         toast({
           title: "訊息已發送",
@@ -55,32 +53,18 @@ export default function ContactPage() {
 
         // Reset form fields
         setFormData({
-          Name: "",
-          Email: "",
-          Phone: "",
-          Message: ""
-        });
-
-        // Post to API for email sending
-        await fetch("/api/crm", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name: formData.Name,
-            email: formData.Email,
-            phone: formData.Phone,
-            message: formData.Message,
-            formType: "contact",
-            userId: user?.uid
-          }),
+          name: "",
+          email: "",
+          phone: "",
+          message: "",
+          service: "",
+          company: "",
         });
       } else {
         // Show error toast
         toast({
           title: "發送失敗",
-          description: response.Message,
+          description: result.error?.message || "提交表單時出錯，請稍後再試。",
           variant: "destructive",
         });
       }
@@ -147,53 +131,53 @@ export default function ContactPage() {
           <CardContent>
             <form className="space-y-4" onSubmit={handleSubmit}>
               <div>
-                <label htmlFor="Name" className="block text-sm font-medium mb-1">
+                <label htmlFor="name" className="block text-sm font-medium mb-1">
                   姓名
                 </label>
-                <Input 
-                  id="Name" 
-                  placeholder="請輸入您的姓名" 
-                  value={formData.Name}
+                <Input
+                  id="name"
+                  placeholder="請輸入您的姓名"
+                  value={formData.name}
                   onChange={handleChange}
                   required
                 />
               </div>
 
               <div>
-                <label htmlFor="Email" className="block text-sm font-medium mb-1">
+                <label htmlFor="email" className="block text-sm font-medium mb-1">
                   電郵
                 </label>
-                <Input 
-                  id="Email" 
-                  type="email" 
-                  placeholder="請輸入您的電郵" 
-                  value={formData.Email}
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="請輸入您的電郵"
+                  value={formData.email}
                   onChange={handleChange}
                   required
                 />
               </div>
 
               <div>
-                <label htmlFor="Phone" className="block text-sm font-medium mb-1">
+                <label htmlFor="phone" className="block text-sm font-medium mb-1">
                   電話
                 </label>
-                <Input 
-                  id="Phone" 
-                  placeholder="請輸入您的電話" 
-                  value={formData.Phone}
+                <Input
+                  id="phone"
+                  placeholder="請輸入您的電話"
+                  value={formData.phone}
                   onChange={handleChange}
                 />
               </div>
 
               <div>
-                <label htmlFor="Message" className="block text-sm font-medium mb-1">
+                <label htmlFor="message" className="block text-sm font-medium mb-1">
                   訊息
                 </label>
-                <Textarea 
-                  id="Message" 
-                  placeholder="請輸入您的訊息" 
+                <Textarea
+                  id="message"
+                  placeholder="請輸入您的訊息"
                   rows={4}
-                  value={formData.Message}
+                  value={formData.message}
                   onChange={handleChange}
                   required
                 />
