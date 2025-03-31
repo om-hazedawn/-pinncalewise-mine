@@ -269,10 +269,12 @@ export function ContactForm() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-white">{currentContent.serviceLabel}</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select
+                  onValueChange={field.onChange}
+                  value={field.value}>
                   <FormControl>
                     <SelectTrigger className="bg-white/5 border-white/10 text-white">
-                      <SelectValue placeholder={currentContent.serviceLabel} />
+                      <SelectValue placeholder={currentContent.serviceLabel} className="text-white/60" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent className="bg-gray-900 border-white/10 text-white">
