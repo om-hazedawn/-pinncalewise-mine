@@ -23,8 +23,9 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { useToast } from "@/components/ui/use-toast"
-import { submitContactForm, ContactFormData } from "@/lib/api/contactService"
+import { submitContactFormToSupabase, SupabaseContactFormData } from "@/lib/supabase/contactService"
 import { useLanguage } from "../context/language-context"
+import { Loader2, CheckCircle2 } from "lucide-react" // Import icons
 
 // Define form schema with validation
 const formSchema = z.object({
@@ -93,9 +94,30 @@ const content = {
 
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
   const { toast } = useToast()
   const { language } = useLanguage()
   const currentContent = content[language]
+
+  const submitButtonContent = () => {
+    if (isSubmitting) {
+      return (
+        <>
+          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          {currentContent.submitting}
+        </>
+      )
+    }
+    if (isSuccess) {
+      return (
+        <>
+          <CheckCircle2 className="mr-2 h-4 w-4 animate-bounce" />
+          {currentContent.successMessage}
+        </>
+      )
+    }
+    return currentContent.submitButton
+  }
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -111,10 +133,11 @@ export function ContactForm() {
 
   async function onSubmit(data: FormValues) {
     setIsSubmitting(true)
+    setIsSuccess(false)
     
     try {
-      // Submit to API
-      const result = await submitContactForm(data);
+      // Submit to Supabase
+      const result = await submitContactFormToSupabase(data);
       
       if (!result.success) {
         throw new Error(result.error?.message || 'Failed to submit contact form');
@@ -127,14 +150,19 @@ export function ContactForm() {
         duration: 5000,
       })
       
-      // Reset form
-      form.reset()
+      setIsSuccess(true)
+      
+      // Reset form after a short delay to show success state
+      setTimeout(() => {
+        form.reset()
+        setIsSuccess(false)
+      }, 2000)
     } catch (error) {
       console.error("Contact form submission error:", error);
       
       // Show error message with specific details if available
-      const errorMessage = error instanceof Error 
-        ? error.message 
+      const errorMessage = error instanceof Error
+        ? error.message
         : currentContent.errorMessage;
       
       toast({
@@ -144,7 +172,9 @@ export function ContactForm() {
         duration: 5000,
       })
     } finally {
-      setIsSubmitting(false)
+      setTimeout(() => {
+        setIsSubmitting(false)
+      }, 500) // Small delay to ensure loading state is visible
     }
   }
 
@@ -277,12 +307,16 @@ export function ContactForm() {
             )}
           />
 
-          <Button 
-            type="submit" 
+          <Button
+            type="submit"
             disabled={isSubmitting}
-            className="w-full bg-gradient-to-r from-white to-white/90 text-black hover:from-white/95 hover:to-white/85 font-medium shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_25px_rgba(255,255,255,0.25)] transition-all duration-300"
+            className={`w-full font-medium transition-all duration-300 ${
+              isSuccess
+                ? 'bg-green-500 hover:bg-green-600 text-white'
+                : 'bg-gradient-to-r from-white to-white/90 text-black hover:from-white/95 hover:to-white/85'
+            } shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_25px_rgba(255,255,255,0.25)]`}
           >
-            {isSubmitting ? currentContent.submitting : currentContent.submitButton}
+            {submitButtonContent()}
           </Button>
         </form>
       </Form>
