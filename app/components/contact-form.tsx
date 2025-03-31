@@ -179,14 +179,16 @@ export function ContactForm() {
   }
 
   return (
-    <div className="w-full max-w-md mx-auto p-6 bg-white/[0.02] backdrop-blur-sm border border-white/10 rounded-lg shadow-lg">
+    <>
+      <meta name="google" content="notranslate" />
+      <div className="w-full max-w-md mx-auto p-6 bg-white/[0.02] backdrop-blur-sm border border-white/10 rounded-lg shadow-lg">
       <div className="mb-6 text-center">
         <h2 className="text-2xl font-bold text-white mb-2">{currentContent.title}</h2>
         <p className="text-white/60">{currentContent.subtitle}</p>
       </div>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4" translate="no">
           <FormField
             control={form.control}
             name="name"
@@ -273,16 +275,16 @@ export function ContactForm() {
                   onValueChange={field.onChange}
                   value={field.value}>
                   <FormControl>
-                    <SelectTrigger className="bg-white/5 border-white/10 text-white">
+                    <SelectTrigger className="bg-white/5 border-white/10 text-white" translate="no">
                       <SelectValue placeholder={currentContent.serviceLabel} className="text-white/60" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent className="bg-gray-900 border-white/10 text-white">
-                    <SelectItem value="company-secretary">{currentContent.services.companySecretary}</SelectItem>
-                    <SelectItem value="accounting">{currentContent.services.accounting}</SelectItem>
-                    <SelectItem value="business-registration">{currentContent.services.businessRegistration}</SelectItem>
-                    <SelectItem value="virtual-office">{currentContent.services.virtualOffice}</SelectItem>
-                    <SelectItem value="other">{currentContent.services.other}</SelectItem>
+                  <SelectContent className="bg-gray-900 border-white/10 text-white" translate="no">
+                    <SelectItem value="company-secretary" translate="no">{currentContent.services.companySecretary}</SelectItem>
+                    <SelectItem value="accounting" translate="no">{currentContent.services.accounting}</SelectItem>
+                    <SelectItem value="business-registration" translate="no">{currentContent.services.businessRegistration}</SelectItem>
+                    <SelectItem value="virtual-office" translate="no">{currentContent.services.virtualOffice}</SelectItem>
+                    <SelectItem value="other" translate="no">{currentContent.services.other}</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -322,6 +324,7 @@ export function ContactForm() {
           </Button>
         </form>
       </Form>
-    </div>
+      </div>
+    </>
   )
 }
