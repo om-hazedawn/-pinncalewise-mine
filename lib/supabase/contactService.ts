@@ -18,6 +18,12 @@ export interface SupabaseSubmitResult {
 
 export async function submitContactFormToSupabase(data: SupabaseContactFormData): Promise<SupabaseSubmitResult> {
   try {
+    // Log Supabase configuration (but not the full key for security)
+    console.log('Supabase Config:', {
+      url: process.env.NEXT_PUBLIC_SUPABASE_URL,
+      hasAnonKey: !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    });
+
     // Validate Supabase configuration
     if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
       throw new Error('Supabase configuration is missing')
@@ -29,7 +35,16 @@ export async function submitContactFormToSupabase(data: SupabaseContactFormData)
 
     while (attempts > 0) {
       try {
-        const { error: supabaseError } = await supabase
+        console.log('Attempting to insert contact:', {
+          name: data.name,
+          email: data.email,
+          phone: data.phone || null,
+          company: data.company || null,
+          service: data.service,
+          message: data.message
+        });
+
+        const { data: insertedData, error: supabaseError } = await supabase
           .from('contacts')
           .insert([{
             name: data.name,
@@ -39,6 +54,13 @@ export async function submitContactFormToSupabase(data: SupabaseContactFormData)
             service: data.service,
             message: data.message
           }])
+          .select();  // Add this to get back the inserted data
+
+        if (supabaseError) {
+          console.error('Supabase insert error:', supabaseError);
+        }
+        
+        console.log('Supabase insert response:', { data: insertedData, error: supabaseError });
 
         if (!supabaseError) {
           return { success: true }

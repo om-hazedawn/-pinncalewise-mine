@@ -45,11 +45,13 @@ export default function ContactPage() {
       });
 
       if (result.success) {
-        // Show success toast notification
+        // Show success toast notification and alert
         toast({
           title: "訊息已發送",
           description: "感謝您的查詢，我們將盡快回覆您。",
         });
+        
+        alert("Contact form submitted successfully!");
 
         // Reset form fields
         setFormData({
