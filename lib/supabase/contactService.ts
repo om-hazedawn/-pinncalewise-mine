@@ -1,4 +1,4 @@
-import { supabase } from './client'
+import { createClient } from '@supabase/supabase-js'
 
 export interface SupabaseContactFormData {
   name: string
@@ -18,66 +18,46 @@ export interface SupabaseSubmitResult {
 
 export async function submitContactFormToSupabase(data: SupabaseContactFormData): Promise<SupabaseSubmitResult> {
   try {
-    // Log Supabase configuration (but not the full key for security)
-    console.log('Supabase Config:', {
-      url: process.env.NEXT_PUBLIC_SUPABASE_URL,
-      hasAnonKey: !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-    });
-
-    // Validate Supabase configuration
-    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
-      throw new Error('Supabase configuration is missing')
-    }
-
-    // Add retry logic
-    let attempts = 3
-    let error = null
-
-    while (attempts > 0) {
-      try {
-        console.log('Attempting to insert contact:', {
-          name: data.name,
-          email: data.email,
-          phone: data.phone || null,
-          company: data.company || null,
-          service: data.service,
-          message: data.message
-        });
-
-        const { data: insertedData, error: supabaseError } = await supabase
-          .from('contacts')
-          .insert([{
-            name: data.name,
-            email: data.email,
-            phone: data.phone || null,
-            company: data.company || null,
-            service: data.service,
-            message: data.message
-          }])
-          .select();  // Add this to get back the inserted data
-
-        if (supabaseError) {
-          console.error('Supabase insert error:', supabaseError);
+    // Create a fresh client for each request to avoid any session/auth issues
+    const supabaseClient = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        auth: {
+          persistSession: false // Don't persist the session
+        },
+        global: {
+          headers: {
+            'X-Client-Info': 'contact-form'
+          }
         }
-        
-        console.log('Supabase insert response:', { data: insertedData, error: supabaseError });
-
-        if (!supabaseError) {
-          return { success: true }
-        }
-
-        error = supabaseError
-      } catch (e) {
-        error = e
       }
+    )
 
-      attempts--
-      if (attempts > 0) {
-        await new Promise(resolve => setTimeout(resolve, 1000)) // Wait 1 second before retry
+    // Direct insert without any session management
+    const { error: insertError } = await supabaseClient
+      .from('contacts')
+      .insert([{
+        name: data.name,
+        email: data.email,
+        phone: data.phone || null,
+        company: data.company || null,
+        service: data.service || '',
+        message: data.message,
+        created_at: new Date().toISOString()
+      }])
+
+    if (insertError) {
+      console.error('Insert error:', insertError)
+      return {
+        success: false,
+        error: {
+          message: insertError.message
+        }
       }
     }
 
-    throw error || new Error('Failed to submit after multiple attempts')
+    return { success: true }
   } catch (error) {
     console.error('Error submitting to Supabase:', error)
     return {
